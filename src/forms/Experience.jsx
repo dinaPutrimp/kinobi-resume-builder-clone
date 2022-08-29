@@ -1,9 +1,10 @@
 import { useContext, useReducer, useRef } from "react";
+import { Link } from "react-router-dom";
 import { MergeContext } from "../contexts/MergeContext";
 
 
 const Experience = () => {
-    const years = Array.from(new Array(40), (val, index) => (new Date()).getFullYear() - index);
+    const years = Array.from(new Array(40), (_, index) => (new Date()).getFullYear() - index);
     const { experiences, storeExperiences } = useContext(MergeContext);
     const [state, dispatch] = useReducer(storeExperiences, experiences);
     const refs = useRef();
@@ -51,6 +52,13 @@ const Experience = () => {
         })
     }
 
+    const toTheNextStep = (e) => {
+        dispatch({
+            type: "NEXT_STEP",
+            payload: e.target.name
+        });
+    }
+
     return (
         <div className="p-3 shadow-t-side rounded-lg bg-white">
             <div>
@@ -64,8 +72,10 @@ const Experience = () => {
                             <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`}>
                                 <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
                                     <div className="flex items-center">
-                                        <div className="mr-2">- {experience.company}</div>
-                                        <svg className="fill-red-500 cursor-pointer" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2zm-7-10.414l3.293-3.293 1.414 1.414-3.293 3.293 3.293 3.293-1.414 1.414-3.293-3.293-3.293 3.293-1.414-1.414 3.293-3.293-3.293-3.293 1.414-1.414 3.293 3.293zm10-8.586h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-8-3h-4v1h4v-1z" /></svg>
+                                        <div className="mr-2">
+                                            <span>{experience.role} - {experience.company}</span>
+                                            <svg className="fill-red-500 cursor-pointer" width="22" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2zm-7-10.414l3.293-3.293 1.414 1.414-3.293 3.293 3.293 3.293-1.414 1.414-3.293-3.293-3.293 3.293-1.414-1.414 3.293-3.293-3.293-3.293 1.414-1.414 3.293 3.293zm10-8.586h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-8-3h-4v1h4v-1z" onClick={() => dispatch({ type: "REMOVE_FORM", payload: { index: index } })} /></svg>
+                                        </div>
                                     </div>
                                 </label>
                                 <div className="accordion-collapse collapse show" id={`collapse${index}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionCard">
@@ -182,8 +192,8 @@ const Experience = () => {
                 <span className="text-sm text-blue-900 font-semibold">Add experience</span>
             </button>
             <div className="flex flex-row justify-end mb-4">
-                <button className="block w-auto py-1.5 px-4 bg-white border border-2 border-blue-900 text-blue-800 rounded uppercase font-medium self-end mr-3">Back</button>
-                <button className="block w-auto py-2 px-4 bg-blue-900 text-white rounded uppercase font-medium">Save & Continue</button>
+                <Link to='/' className="block w-auto py-1.5 px-4 bg-white border border-2 border-blue-900 text-blue-800 rounded uppercase font-medium self-end mr-3">Back</Link>
+                <Link to='/education' className="block w-auto py-2 px-4 bg-blue-900 text-white rounded uppercase font-medium">Save & Continue</Link>
             </div>
         </div>
     );

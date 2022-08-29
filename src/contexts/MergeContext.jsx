@@ -51,7 +51,7 @@ class MergeContextProvider extends Component {
                 startYear: '',
                 endMonth: '',
                 endYear: '',
-                current: '',
+                current: false,
                 description: ''
             }
         ],
@@ -102,6 +102,8 @@ class MergeContextProvider extends Component {
                     }
                     return exp;
                 });
+            case "REMOVE_FORM":
+                return state.filter((exp, index) => index !== action.payload.index);
             default:
                 return state;
         }
@@ -130,15 +132,70 @@ class MergeContextProvider extends Component {
                     }
                     return edu;
                 });
+            case "REMOVE_FORM":
+                return state.filter((edu, index) => index !== action.payload.index);
             default:
                 return state;
         }
     }
 
+    storeOrganisationalExps = (state = this.state.organizations, action) => {
+        switch (action.type) {
+            case "ADD_ORGANIZATION_EXP":
+                return [
+                    ...state,
+                    action.payload.organization
+                ];
+            case "CHANGE_ORGANIZATION":
+                return state.map((org, idx) => {
+                    if (Number(idx) === Number(action.payload.index)) {
+                        if (action.payload.name === "current") {
+                            return { ...org, [action.payload.name]: !org.current }
+                        }
+                        return { ...org, [action.payload.name]: action.payload.value }
+                    }
+                    return org;
+                });
+            case "CHANGE_DESCRIPTION":
+                return state.map((org, idx) => {
+                    if (Number(idx) === Number(action.payload.index)) {
+                        if (action.payload.name === "description") {
+                            return { ...org, [action.payload.name]: action.payload.value }
+                        }
+                    }
+                    return org;
+                });
+            case "REMOVE_FORM":
+                return state.filter((org, index) => index !== action.payload.index);
+            default:
+                return state;
+        }
+    }
+
+    storeOtherExperiences = (state = this.state.others, action) => {
+        switch (action.type) {
+            case "ADD_OTHER":
+                return [
+                    ...state,
+                    action.payload.other
+                ];
+            case "CHANGE_OTHER":
+                return state.map((other, idx) => {
+                    if (Number(idx) === Number(action.payload.index)) {
+                        return { ...other, [action.payload.name]: action.payload.value }
+                    }
+                    return other;
+                });
+            case "REMOVE_FORM":
+                return state.filter((other, index) => index !== action.payload.index);
+            default:
+                return state;
+        }
+    }
 
     render() {
         return (
-            <MergeContext.Provider value={{ ...this.state, storePersonalInformation: this.storePersonalInformation, storeExperiences: this.storeExperiences, storeEducations: this.storeEducations }}>
+            <MergeContext.Provider value={{ ...this.state, storePersonalInformation: this.storePersonalInformation, storeExperiences: this.storeExperiences, storeEducations: this.storeEducations, storeOrganisationalExps: this.storeOrganisationalExps, storeOtherExperiences: this.storeOtherExperiences }}>
                 {this.props.children}
             </MergeContext.Provider>
         )

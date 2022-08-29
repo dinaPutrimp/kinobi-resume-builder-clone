@@ -1,5 +1,7 @@
 import { useContext, useReducer } from "react";
+import { Link } from "react-router-dom";
 import { MergeContext } from "../contexts/MergeContext";
+
 
 const PersonalInfoForm = () => {
     const { personal, storePersonalInformation } = useContext(MergeContext);
@@ -9,7 +11,7 @@ const PersonalInfoForm = () => {
         dispatch({
             type: "CHANGE_PERSONAL",
             payload: { name: e.target.name, value: e.target.value }
-        })
+        });
     }
 
     return (
@@ -47,11 +49,11 @@ const PersonalInfoForm = () => {
                 </div>
                 <div className="mb-4 md:mb-6">
                     <label htmlFor="summary" className="block text-xs mb-2">Short description about yourself</label>
-                    <textarea name="summary" id="summary" cols="30" rows="5" placeholder="Example: A fresh graduate in Information Systems, who has 2 years experiences as Software Engineer." className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" onChange={handleChange}>{state.summary}</textarea>
+                    <textarea name="summary" id="summary" cols="30" rows="5" placeholder="Example: A fresh graduate in Information Systems, who has 2 years experiences as Software Engineer." value={state.summary} className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" onChange={handleChange}>{state.summary}</textarea>
                     <small className="text-xs">Recomended: 100 to 150 characters</small>
                 </div>
                 <div className="flex flex-col">
-                    <button type="submit" className="block w-full py-2 px-4 bg-blue-900 text-white rounded uppercase font-medium md:w-auto md:self-end">Save & Continue</button>
+                    <Link to='/experience' className="block w-full py-2 px-4 bg-blue-900 text-white rounded uppercase font-medium md:w-auto md:self-end">Save & Continue</Link>
                 </div>
             </div>
         </div>

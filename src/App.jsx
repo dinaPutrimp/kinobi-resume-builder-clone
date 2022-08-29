@@ -14,28 +14,29 @@ import OthersExperience from './forms/OthersExperience';
 import PersonalInfoForm from './forms/PersonalInfoForm';
 import ExperienceContextProvider from './contexts/ExperienceContext';
 import MergeContextProvider from './contexts/MergeContext';
+// import StepperContextProvider from './contexts/StepperContext';
 
 function App() {
 
   return (
     <Router>
       <div className="App max-w-full bf-violet-100 grid md:grid-cols-2 gap-4">
+        {/* <StepperContextProvider> */}
         <div>
           <StepBar />
-          <ExperienceContextProvider>
-            <MergeContextProvider>
-              <Routes>
-                <Route path='/' element={<PersonalInfoForm />} />
-                <Route path='/experience' element={<Experience />} />
-                <Route path='/education' element={<Education />} />
-                <Route path='/organisational' element={<OrganisationalExperience />} />
-                <Route path='/others' element={<OthersExperience />} />
-                <Route path='/complete' element={<Complete />} />
-              </Routes>
-            </MergeContextProvider>
-          </ExperienceContextProvider>
+          <MergeContextProvider>
+            <Routes>
+              <Route path='/' element={<PersonalInfoForm />} />
+              <Route path='/experience' element={<Experience />} />
+              <Route path='/education' element={<Education />} />
+              <Route path='/organisational' element={<OrganisationalExperience />} />
+              <Route path='/others' element={<OthersExperience />} />
+              <Route path='/complete' element={<Complete />} />
+            </Routes>
+          </MergeContextProvider>
         </div>
         <ResumeView />
+        {/* </StepperContextProvider> */}
       </div>
     </Router>
   )
