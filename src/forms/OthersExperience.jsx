@@ -1,11 +1,10 @@
-import { useContext, useReducer } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { MergeContext } from "../contexts/MergeContext";
+import { ResumeContext } from "../contexts/ResumeContext";
 
 const OthersExperience = () => {
     const years = Array.from(new Array(40), (val, index) => (new Date()).getFullYear() - index);
-    const { others, storeOtherExperiences } = useContext(MergeContext);
-    const [state, dispatch] = useReducer(storeOtherExperiences, others);
+    const { othersAchievement, dispatch } = useContext(ResumeContext);
 
     const addOtherExperience = () => {
         dispatch({
@@ -34,7 +33,7 @@ const OthersExperience = () => {
                 <small>Only write things that help you catch recruiters' eyes.</small>
             </div>
             <div className="accordion" id="accordionCard">
-                {state.map((other, index) => {
+                {othersAchievement.map((other, index) => {
                     return (
                         <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`}>
                             <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
@@ -60,7 +59,7 @@ const OthersExperience = () => {
                                     </div>
                                     <div className="mb-4 md:mb-4">
                                         <label htmlFor="year" className="block mb-2 text-xs">Year</label>
-                                        <select name="year" id="year" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={other.category} onChange={(e) => handleChange(e, index)}>
+                                        <select name="year" id="year" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={other.year} onChange={(e) => handleChange(e, index)}>
                                             <option value=""></option>
                                             {years.map((year, idx) => {
                                                 return <option key={idx} value={year}>{year}</option>
@@ -70,7 +69,7 @@ const OthersExperience = () => {
                                     </div>
                                     <div>
                                         <label htmlFor="elaboration" className="block mb-2 text-xs">Elaboration</label>
-                                        <input type="text" name="elaboration" id="elaboration" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={other.category} onChange={(e) => handleChange(e, index)} />
+                                        <input type="text" name="elaboration" id="elaboration" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={other.elaboration} onChange={(e) => handleChange(e, index)} />
                                     </div>
                                 </div>
                             </div>

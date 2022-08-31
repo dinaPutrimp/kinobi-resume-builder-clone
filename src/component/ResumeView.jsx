@@ -1,8 +1,14 @@
+import { useContext } from "react";
+import { ResumeContext } from "../contexts/ResumeContext";
+
 const ResumeView = () => {
+    // const { personalInfo, experiences } = useContext(ResumeContext);
+    // console.log(personal);
+
     return (
         <div className="p-5 shadow-t-side rounded-lg bg-white">
             <div className="mb-3">
-                <div className="text-3xl font-bold uppercase mb-2">Michael Wong</div>
+                <div className="text-3xl font-bold uppercase mb-2"></div>
                 <div className="text-xs text-blue-500 underline-offsite-2">081380231866 | yeehsin1@gmail.com | https://twitter.com/home | https://twitter.com/home</div>
                 <div className="text-xs text-gray-400 mb-1.5">Singapore</div>
                 <div className="text-xs">

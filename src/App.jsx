@@ -12,18 +12,17 @@ import Experience from './forms/Experience';
 import OrganisationalExperience from './forms/OrganisationalExperience';
 import OthersExperience from './forms/OthersExperience';
 import PersonalInfoForm from './forms/PersonalInfoForm';
-import MergeContextProvider from './contexts/MergeContext';
 import StepperContextProvider from './contexts/StepperContext';
+import ResumeContextProvider from './contexts/ResumeContext';
 
 function App() {
-
   return (
     <Router>
-      <div className="App max-w-full bf-violet-100 grid md:grid-cols-2 gap-4">
-        <StepperContextProvider>
-          <div>
-            <StepBar />
-            <MergeContextProvider>
+      <StepperContextProvider>
+        <ResumeContextProvider>
+          <div className="App max-w-full bf-violet-100 grid md:grid-cols-2 gap-4">
+            <div>
+              <StepBar />
               <Routes>
                 <Route path='/' element={<PersonalInfoForm />} />
                 <Route path='/experience' element={<Experience />} />
@@ -32,11 +31,11 @@ function App() {
                 <Route path='/others' element={<OthersExperience />} />
                 <Route path='/complete' element={<Complete />} />
               </Routes>
-            </MergeContextProvider>
+            </div>
+            <ResumeView />
           </div>
-        </StepperContextProvider>
-        <ResumeView />
-      </div>
+        </ResumeContextProvider>
+      </StepperContextProvider>
     </Router>
   )
 }

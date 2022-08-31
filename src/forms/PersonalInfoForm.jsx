@@ -1,11 +1,10 @@
-import { useContext, useReducer } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { MergeContext } from "../contexts/MergeContext";
+import { ResumeContext } from "../contexts/ResumeContext";
 
 
 const PersonalInfoForm = () => {
-    const { personal, storePersonalInformation } = useContext(MergeContext);
-    const [state, dispatch] = useReducer(storePersonalInformation, personal);
+    const { personalInfo, dispatch } = useContext(ResumeContext);
 
     const handleChange = (e) => {
         dispatch({
@@ -23,33 +22,33 @@ const PersonalInfoForm = () => {
             <div>
                 <div className="mb-4 md:mb-6">
                     <label htmlFor="name" className="block mb-2 text-xs">Name</label>
-                    <input type="text" name="name" id="name" placeholder="e.g. Joshua Tay" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={state.name} onChange={handleChange} />
+                    <input type="text" name="name" id="name" placeholder="e.g. Joshua Tay" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.name} onChange={handleChange} />
                 </div>
                 <div className="mb-4 grid gap-4 md:grid-cols-2 md:mb-6">
                     <div>
                         <label htmlFor="phone" className="block text-xs mb-2">Phone Number (Mobile)</label>
-                        <input type="text" name="phone" id="phone" placeholder="+624717" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={state.phone} onChange={handleChange} />
+                        <input type="text" name="phone" id="phone" placeholder="+624717" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.phone} onChange={handleChange} />
                     </div>
                     <div>
                         <label htmlFor="emal" className="block text-xs mb-2">Email Address</label>
-                        <input type="email" name="email" id="email" placeholder="joshua.tay@gmail.com" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={state.email} onChange={handleChange} />
+                        <input type="email" name="email" id="email" placeholder="joshua.tay@gmail.com" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.email} onChange={handleChange} />
                     </div>
                 </div>
                 <div className="mb-4 md:mb-6">
                     <label htmlFor="linkedin" className="block text-xs mb-2">Linkedin Profile</label>
-                    <input type="text" name="linkedin" id="linkedin" placeholder="https://www.linkedin.com/in/joshua" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={state.linkedin} onChange={handleChange} />
+                    <input type="text" name="linkedin" id="linkedin" placeholder="https://www.linkedin.com/in/joshua" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.linkedin} onChange={handleChange} />
                 </div>
                 <div className="mb-4 md:mb-6">
                     <label htmlFor="portofolio" className="block text-xs mb-2">Portofolio/Website URL (Optional)</label>
-                    <input type="text" name="portofolio" id="portofolio" placeholder="https://github.com/joshua-tay" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={state.portofolio} onChange={handleChange} />
+                    <input type="text" name="portofolio" id="portofolio" placeholder="https://github.com/joshua-tay" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.portofolio} onChange={handleChange} />
                 </div>
                 <div className="mb-4 md:mb-6">
                     <label htmlFor="address" className="block text-xs mb-2">Address (Optional)</label>
-                    <input type="text" name="address" id="address" placeholder="Jl Kramat Jati, DKI Jakarta" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={state.address} onChange={handleChange} />
+                    <input type="text" name="address" id="address" placeholder="Jl Kramat Jati, DKI Jakarta" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.address} onChange={handleChange} />
                 </div>
                 <div className="mb-4 md:mb-6">
                     <label htmlFor="summary" className="block text-xs mb-2">Short description about yourself</label>
-                    <textarea name="summary" id="summary" cols="30" rows="5" placeholder="Example: A fresh graduate in Information Systems, who has 2 years experiences as Software Engineer." value={state.summary} className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" onChange={handleChange}>{state.summary}</textarea>
+                    <textarea name="summary" id="summary" cols="30" rows="5" placeholder="Example: A fresh graduate in Information Systems, who has 2 years experiences as Software Engineer." className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.summary} onChange={handleChange}>{personalInfo.summary}</textarea>
                     <small className="text-xs">Recomended: 100 to 150 characters</small>
                 </div>
                 <div className="flex flex-col">

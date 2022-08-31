@@ -1,12 +1,11 @@
-import { useContext, useReducer, useRef } from "react";
+import { useContext } from "react";
+import ContentEditable from "react-contenteditable";
 import { Link } from "react-router-dom";
-import { MergeContext } from "../contexts/MergeContext";
+import { ResumeContext } from "../contexts/ResumeContext";
 
 const OrganisationalExperience = () => {
     const years = Array.from(new Array(40), (val, index) => (new Date()).getFullYear() - index);
-    const { organizations, storeOrganisationalExps } = useContext(MergeContext);
-    const [state, dispatch] = useReducer(storeOrganisationalExps, organizations);
-    const refs = useRef();
+    const { organizationsExperience, dispatch } = useContext(ResumeContext);
 
     const addOrganizationExp = () => {
         dispatch({
@@ -21,7 +20,7 @@ const OrganisationalExperience = () => {
                     endMonth: '',
                     endYear: '',
                     current: false,
-                    description: ''
+                    description: '<ul><li class=\"list-disc\"></li></ul>'
                 }
             }
         });
@@ -34,10 +33,10 @@ const OrganisationalExperience = () => {
         })
     }
 
-    const handleKeyPress = (e, idx) => {
+    const handleChangeContent = (e, idx) => {
         dispatch({
-            type: "CHANGE_DESCRIPTION",
-            payload: { name: e.target.id, value: refs.current.innerText.split(/\r?\n/), index: idx }
+            type: "CHANGE_JOBS",
+            payload: { name: "description", value: e.target.value, index: idx }
         })
     }
 
@@ -48,7 +47,7 @@ const OrganisationalExperience = () => {
                 <small>Start with your most recent (newest) experiences.</small>
             </div>
             <div className="accordian" id="accordianCard">
-                {state.map((organization, index) => {
+                {organizationsExperience.map((organization, index) => {
                     return (
                         <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`}>
                             <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
@@ -135,14 +134,13 @@ const OrganisationalExperience = () => {
                                     </div>
                                     <div>
                                         <label htmlFor="description" className="block mb-2 text-xs">Description</label>
-                                        <div contentEditable="true" name="description" id="description" className="block w-full py-2 px-8 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" ref={refs} onInput={(e) => handleKeyPress(e, index)} onKeyDown={(e) => handleKeyPress(e, index)} suppressContentEditableWarning="true">
-                                            <ul className="list-disc">
-                                                <li></li>
-                                                {/* {experience.jobdesk.map((job, idx) => {
-                                                        return <li key={idx}>{job}</li>
-                                                    })} */}
-                                            </ul>
-                                        </div>
+                                        <ContentEditable
+                                            className="block w-full py-2 px-8 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 font-sans text-base font-normal"
+                                            tagName="pre"
+                                            html={organization.description} // innerHTML of the editable div
+                                            disabled={false} // use true to disable edition
+                                            onChange={(e) => handleChangeContent(e, index)} // handle innerHTML change
+                                        />
                                         <small className="block mb-2 text-xs italic">e.g. Supervised the club's first undergraduate mentoring initiative, impacting 30+ students</small>
                                     </div>
                                 </div>

@@ -1,12 +1,11 @@
-import { useContext, useReducer, useRef } from "react";
+import { useContext, useReducer } from "react";
+import ContentEditable from "react-contenteditable";
 import { Link } from "react-router-dom";
-import { MergeContext } from "../contexts/MergeContext";
+import { ResumeContext } from "../contexts/ResumeContext";
 
 const Education = () => {
     const years = Array.from(new Array(40), (val, index) => (new Date()).getFullYear() - index);
-    const { educations, storeEducations } = useContext(MergeContext);
-    const [state, dispatch] = useReducer(storeEducations, educations);
-    const refs = useRef();
+    const { educationBackground, dispatch } = useContext(ResumeContext);
 
     const addEducation = () => {
         dispatch({
@@ -23,7 +22,7 @@ const Education = () => {
                     description: '',
                     gpa: 0,
                     max: '',
-                    achievment: '',
+                    achievment: '<ul><li class=\"list-disc\"></li></ul>',
                 }
             }
         });
@@ -36,10 +35,10 @@ const Education = () => {
         })
     }
 
-    const handleKeyPress = (e, idx) => {
+    const handleChangeContent = (e, idx) => {
         dispatch({
-            type: "CHANGE_ACHIEVMENT",
-            payload: { name: e.target.id, value: refs.current.innerText.split(/\r?\n/), index: idx }
+            type: "CHANGE_JOBS",
+            payload: { name: "achievment", value: e.target.value, index: idx }
         })
     }
 
@@ -57,7 +56,7 @@ const Education = () => {
                 </div>
             </div>
             <div className="accordion" id="accordionCard">
-                {state.map((education, index) => {
+                {educationBackground.map((education, index) => {
                     return (
                         <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`}>
                             <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
@@ -161,14 +160,13 @@ const Education = () => {
                                     </div>
                                     <div>
                                         <label htmlFor="achievment" className="block mb-2 text-xs">Elaboration and Achievment</label>
-                                        <div contentEditable="true" name="achievment" id="achievment" className="block w-full py-2 px-8 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" ref={refs} onInput={(e) => handleKeyPress(e, index)} onKeyDown={(e) => handleKeyPress(e, index)} suppressContentEditableWarning="true">
-                                            <ul className="list-disc">
-                                                <li></li>
-                                                {/* {experience.achievment.map((job, idx) => {
-                                                        return <li key={idx}>{job}</li>
-                                                    })} */}
-                                            </ul>
-                                        </div>
+                                        <ContentEditable
+                                            className="block w-full py-2 px-8 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 font-sans text-base font-normal"
+                                            tagName="pre"
+                                            html={education.achievment} // innerHTML of the editable div
+                                            disabled={false} // use true to disable edition
+                                            onChange={(e) => handleChangeContent(e, index)} // handle innerHTML change
+                                        />
                                         <small className="italic">e.g. Appointed the head of AIESEC Business Immersion Program, Impacting 20+ US/EU students.</small>
                                     </div>
                                 </div>
