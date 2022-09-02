@@ -11,7 +11,8 @@ class StepperContextProvider extends Component {
             { route: '/organisational', name: 'Organisational', value: 4 },
             { route: '/others', name: 'Others', value: 5 },
             { route: '/complete', name: 'Complete', value: 6 },
-        ]
+        ],
+        pdfID: "resume",
     }
 
     render() {

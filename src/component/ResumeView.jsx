@@ -1,80 +1,121 @@
+import DOMPurify from "isomorphic-dompurify";
 import { useContext } from "react";
 import { ResumeContext } from "../contexts/ResumeContext";
+import { StepperContext } from "../contexts/StepperContext";
 
 const ResumeView = () => {
-    // const { personalInfo, experiences } = useContext(ResumeContext);
-    // console.log(personal);
+    const { personalInfo, worksExperience, educationBackground, organizationsExperience, othersAchievement } = useContext(ResumeContext);
+    const { pdfID } = useContext(StepperContext);
 
     return (
-        <div className="p-5 shadow-t-side rounded-lg bg-white">
-            <div className="mb-3">
-                <div className="text-3xl font-bold uppercase mb-2"></div>
-                <div className="text-xs text-blue-500 underline-offsite-2">081380231866 | yeehsin1@gmail.com | https://twitter.com/home | https://twitter.com/home</div>
-                <div className="text-xs text-gray-400 mb-1.5">Singapore</div>
-                <div className="text-xs">
-                    Michael Wong is a person who is interested in joining an organization to realize his passion for working together with people from diverse backgrounds. He has analytical skills, strategic thinking, and negotiation.
-                </div>
-            </div>
-            <div className="mb-2">
-                <div className="text-sm font-semibold border-b border-black mb-1">Work Experience</div>
-                <div>
-                    <div className="flex justify-between items-center mb-1">
-                        <div>
-                            <span className="font-semibold text-xs">PT Karya Indonesia Cerdas</span> - <span className="font-semibold text-xs text-gray-500">DKI Jakarta, Indonesia</span>
-                        </div>
-                        <div className="text-xs">Mar 2019 - Present</div>
+        <div className="shadow-t-side rounded-lg bg-white h-fit">
+            <div id={pdfID} className="p-6">
+                <div className="mb-3">
+                    <div className="text-3xl font-bold uppercase mb-2">{personalInfo.name}</div>
+                    <div className="text-xs text-blue-500 underline-offsite-2">
+                        <span>{personalInfo.phone}</span>
+                        <span>{personalInfo.email !== "" ? ` | ${personalInfo.email}` : ""}</span>
+                        <span>{personalInfo.linkedin !== "" ? <a target="_blank" href={personalInfo.linkedin}> | {personalInfo.linkedin}</a> : ""}</span>
+                        <span>{personalInfo.portofolio !== "" ? <a target="_blank" href={personalInfo.portofolio}> | {personalInfo.portofolio}</a> : ""}</span>
                     </div>
-                    <div className="mb-1 text-xs italic">Frontend Web Developer</div>
-                    <ul className="text-xs list-disc pl-4">
-                        <li>President of the Student Ambassadors</li>
-                        <li>Accelerated Leader, Accelerated Leaders’ Board</li>
-                    </ul>
-                </div>
-            </div>
-            <div className="mb-2">
-                <div className="text-sm font-semibold border-b border-black mb-1">Education</div>
-                <div>
-                    <div className="flex justify-between items-center mb-1">
-                        <div>
-                            <span className="font-semibold text-xs">National University of Singapore</span> - <span className="font-semibold text-xs text-gray-500">Singapore</span>
-                        </div>
-                        <div className="text-xs text-right">
-                            <div>Mar 2019 - Jan 2023</div>
-                            <div>(Expexted)</div>
-                        </div>
+                    <div className="text-xs text-gray-400 mb-1.5">{personalInfo.address}</div>
+                    <div className="text-xs">
+                        {personalInfo.summary}
                     </div>
-                    <div className="mb-1 text-xs italic">Bachelor Degree in Finance, 3.70/4.00</div>
-                    <ul className="text-xs list-disc pl-4">
-                        <li>President of the Student Ambassadors</li>
-                        <li>Accelerated Leader, Accelerated Leaders’ Board</li>
-                    </ul>
                 </div>
-            </div>
-            <div className="mb-2">
-                <div className="text-sm font-semibold border-b border-black mb-1">Oragnisational Experience</div>
-                <div>
-                    <div className="flex justify-between items-center mb-1">
-                        <div>
-                            <span className="font-semibold text-xs">Developer in Crime</span> - <span className="font-semibold text-xs text-gray-500">Singapore</span>
-                        </div>
-                        <div className="text-xs text-right">Mar 2019 - Present</div>
+                <div className="mb-2">
+                    {worksExperience.length > 0 ? <div className="text-sm font-semibold border-b border-black mb-1">Work Experience</div> : ""}
+                    {worksExperience.map((experience, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="flex justify-between items-center mb-1">
+                                    <div>
+                                        <span className="font-semibold text-xs">{experience.company}</span> - <span className="font-semibold text-xs text-gray-500">{experience.companyLocation}</span>
+                                    </div>
+                                    <div className="text-xs">
+                                        <span>{experience.startMonth}</span>
+                                        <span> {experience.startYear}</span>
+                                        <span>
+                                            {experience.current === true ? " - Present" : <span> - {experience.endMonth} {experience.endYear}</span>}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="mb-1 text-xs italic">{experience.role}</div>
+                                <div className="px-4 text-xs" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(experience.jobdesk) }}>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="mb-2">
+                    {educationBackground.length > 0 ? <div className="text-sm font-semibold border-b border-black mb-1">Education</div> : ""}
+                    {educationBackground.map((education, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="flex justify-between items-center mb-1">
+                                    <div>
+                                        <span className="font-semibold text-xs">{education.school}</span> - <span className="font-semibold text-xs text-gray-500">{education.location}</span>
+                                    </div>
+                                    <div className="text-xs text-right">
+                                        <span>{education.startMonth}</span>
+                                        <span> {education.startYear}</span>
+                                        <span>
+                                            {<span> - {education.endMonth} {education.endYear}</span>}
+                                        </span>
+                                        {education.endYear > (new Date()).getFullYear() ? <div>(Expexted)</div> : <div></div>}
+                                    </div>
+                                </div>
+                                <div className="mb-1 text-xs italic">
+                                    <span>{education.educationLevel} </span>
+                                    {education.description !== "" ? <span>in {education.description},</span> : ""}
+                                    <span> {education.gpa !== "" ? education.gpa : ""}</span>
+                                    {education.max !== "" ? <span>/{education.max}</span> : ""}
+                                </div>
+                                <div className="px-4 text-xs" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(education.achievment) }}>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="mb-2">
+                    {organizationsExperience.length > 0 ? <div className="text-sm font-semibold border-b border-black mb-1">Oragnisational Experience</div> : ""}
+                    {organizationsExperience.map((organization, index) => {
+                        return (
+                            <div key={index}>
+                                <div className="flex justify-between items-center mb-1">
+                                    <div>
+                                        <span className="font-semibold text-xs">{organization.name}</span> - <span className="font-semibold text-xs text-gray-500">{organization.location}</span>
+                                    </div>
+                                    <div className="text-xs text-right">
+                                        <span>{organization.startMonth}</span>
+                                        <span> {organization.startYear}</span>
+                                        <span>
+                                            {organization.current === true ? " - Present" : <span> - {organization.endMonth} {organization.endYear}</span>}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="mb-1 text-xs italic">{organization.role}</div>
+                                <div className="px-4 text-xs" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(organization.description) }}>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="mb-2">
+                    {othersAchievement.length > 0 ? <div className="text-sm font-semibold border-b border-black mb-1">Skills, Achievements, & Other Experience</div> : ""}
+                    <div>
+                        {othersAchievement.map((other, index) => {
+                            return (
+                                <ul className="text-xs list-disc pl-4" key={index}>
+                                    <li>
+                                        <span className="font-semibold">{other.category}</span>
+                                        {other.year !== "" ? <span> ({other.year}):</span> : ""}
+                                        <span> {other.elaboration}</span>
+                                    </li>
+                                </ul>
+                            )
+                        })}
                     </div>
-                    <div className="mb-1 text-xs italic">Fullstack Developer</div>
-                    <ul className="text-xs list-disc pl-4">
-                        <li>President of the Student Ambassadors</li>
-                        <li>Accelerated Leader, Accelerated Leaders’ Board</li>
-                    </ul>
-                </div>
-            </div>
-            <div className="mb-2">
-                <div className="text-sm font-semibold border-b border-black mb-1">Skills, Achievements, & Other Experience</div>
-                <div>
-                    <ul className="text-xs list-disc pl-4">
-                        <li>
-                            <span className="font-semibold">Class Project</span> (2022):
-                            <span> Create business plan for cookies business, assignment from Introduction to Business module</span>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>

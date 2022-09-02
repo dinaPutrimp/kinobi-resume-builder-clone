@@ -55,10 +55,8 @@ const Experience = () => {
                             <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`}>
                                 <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
                                     <div className="flex items-center">
-                                        <div className="mr-2">
-                                            <span>{experience.role} - {experience.company}</span>
-                                            <svg className="fill-red-500 cursor-pointer" width="22" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2zm-7-10.414l3.293-3.293 1.414 1.414-3.293 3.293 3.293 3.293-1.414 1.414-3.293-3.293-3.293 3.293-1.414-1.414 3.293-3.293-3.293-3.293 1.414-1.414 3.293 3.293zm10-8.586h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-8-3h-4v1h4v-1z" onClick={() => dispatch({ type: "REMOVE_FORM", payload: { index: index } })} /></svg>
-                                        </div>
+                                        <span className="mr-2">{experience.role} - {experience.company}</span>
+                                        <svg className="fill-red-500 cursor-pointer hover:ring-8 hover:ring-stone-400/40" width="22" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" onClick={() => dispatch({ type: "REMOVE_FORM", payload: { index: index } })}><path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2zm-7-10.414l3.293-3.293 1.414 1.414-3.293 3.293 3.293 3.293-1.414 1.414-3.293-3.293-3.293 3.293-1.414-1.414 3.293-3.293-3.293-3.293 1.414-1.414 3.293 3.293zm10-8.586h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-8-3h-4v1h4v-1z" /></svg>
                                     </div>
                                 </label>
                                 <div className="accordion-collapse collapse show" id={`collapse${index}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionCard">
@@ -152,7 +150,7 @@ const Experience = () => {
                                             <label htmlFor="jobdesk" className="block mb-2 text-xs">Work Portofolio and Achievments</label>
                                             <ContentEditable
                                                 className="block w-full py-2 px-8 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 font-sans text-base font-normal"
-                                                tagName="pre"
+                                                tagName="ul"
                                                 html={experience.jobdesk} // innerHTML of the editable div
                                                 disabled={false} // use true to disable edition
                                                 onChange={(e) => handleChangeContent(e, index)} // handle innerHTML change
