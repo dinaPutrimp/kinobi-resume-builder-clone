@@ -62,7 +62,7 @@ const Education = () => {
                             <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
                                 <div className="flex items-center">
                                     <div className="mr-2">- {education.school}</div>
-                                    <svg className="fill-red-500 cursor-pointer" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" onClick={() => dispatch({ type: "REMOVE_FORM", payload: { index: index } })}><path d="M19 24h-14c-1.104 0-2-.896-2-2v-16h18v16c0 1.104-.896 2-2 2zm-7-10.414l3.293-3.293 1.414 1.414-3.293 3.293 3.293 3.293-1.414 1.414-3.293-3.293-3.293 3.293-1.414-1.414 3.293-3.293-3.293-3.293 1.414-1.414 3.293 3.293zm10-8.586h-20v-2h6v-1.5c0-.827.673-1.5 1.5-1.5h5c.825 0 1.5.671 1.5 1.5v1.5h6v2zm-8-3h-4v1h4v-1z" /></svg>
+                                    <i className="fa fa-trash text-xl text-red-500 cursor-pointer" onClick={() => dispatch({ type: "REMOVE_FORM", payload: { index: index } })}></i>
                                 </div>
                             </label>
                             <div className="accordion-collapse collapse show" id={`collapse${index}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionCard">
