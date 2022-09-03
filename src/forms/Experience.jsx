@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useContext } from "react";
 import ContentEditable from "react-contenteditable";
 import { Link } from "react-router-dom";
@@ -6,7 +7,9 @@ import { ResumeContext } from "../contexts/ResumeContext";
 
 const Experience = () => {
     const years = Array.from(new Array(40), (_, index) => (new Date()).getFullYear() - index);
-    const { worksExperience, dispatch } = useContext(ResumeContext)
+    const { worksExperience, dispatch } = useContext(ResumeContext);
+    const dragCardIndex = useRef();
+    const dragOverCardIndex = useRef();
 
     const addExperience = () => {
         dispatch({
@@ -42,6 +45,29 @@ const Experience = () => {
         })
     }
 
+
+    const handleDragStart = (e, idx) => {
+        // e.stopPropagation();
+        dragCardIndex.current = idx;
+    }
+
+    const handleDragEnter = (e, idx) => {
+        dragOverCardIndex.current = idx;
+    }
+
+    const handleDropCard = (e) => {
+        const listOfCards = [...worksExperience];
+        const theDragTarget = listOfCards[dragCardIndex.current];
+        listOfCards.splice(dragCardIndex.current, 1);
+        listOfCards.splice(dragOverCardIndex.current, 0, theDragTarget);
+        dragCardIndex.current = null;
+        dragOverCardIndex.current = null;
+        dispatch({
+            type: "DRAG_AND_DROP_CARD_EXPERIENCE",
+            payload: listOfCards,
+        });
+    }
+
     return (
         <div className="p-3 shadow-t-side rounded-lg bg-white">
             <div>
@@ -50,10 +76,10 @@ const Experience = () => {
                     <small>Start with your most recent (newest) experiences.</small>
                 </div>
                 <div className="accordion" id="accordionCard">
-                    {worksExperience.map((experience, index) => {
+                    {worksExperience && worksExperience.map((experience, index) => {
                         return (
-                            <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`}>
-                                <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
+                            <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`} onDragStart={(e) => handleDragStart(e, index)} onDragEnter={(e) => handleDragEnter(e, index)} onDragEnd={handleDropCard} draggable>
+                                <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
                                     <div className="flex items-center">
                                         <span className="mr-2">{experience.role} - {experience.company}</span>
                                         <i className="fa fa-trash text-xl text-red-500 cursor-pointer" onClick={() => dispatch({ type: "REMOVE_FORM", payload: { index: index } })}></i>

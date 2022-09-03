@@ -24,6 +24,8 @@ const ExperienceReducer = (state, action) => {
                 }
                 return exp;
             });
+        case "DRAG_AND_DROP_CARD_EXPERIENCE":
+            return action.payload;
         case "REMOVE_FORM":
             return state.filter((exp, index) => index !== action.payload.index);
         default:

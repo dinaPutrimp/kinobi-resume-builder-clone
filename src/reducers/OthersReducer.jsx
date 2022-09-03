@@ -12,6 +12,8 @@ const OthersReducer = (state, action) => {
                 }
                 return other;
             });
+        case "DRAG_AND_DROP_CARD_OTHER":
+            return action.payload;
         case "REMOVE_FORM":
             return state.filter((other, index) => index !== action.payload.index);
         default:
