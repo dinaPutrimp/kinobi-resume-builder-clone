@@ -26,7 +26,7 @@ const OrganizationReducer = (state, action) => {
             });
         case "DRAG_AND_DROP_CARD_ORGANIZATION":
             return action.payload;
-        case "REMOVE_FORM":
+        case "REMOVE_FORM_ORGANIZATION":
             return state.filter((org, index) => index !== action.payload.index);
         default:
             return state;

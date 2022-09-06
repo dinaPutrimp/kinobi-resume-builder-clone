@@ -64,7 +64,7 @@ const OthersExperience = () => {
                             <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
                                 <div className="flex items-center">
                                     <div className="mr-2">{other.category}</div>
-                                    <i className="fa fa-trash text-xl text-red-500 cursor-pointer" onClick={() => dispatch({ type: "REMOVE_FORM", payload: { index: index } })}></i>
+                                    <i className="fa fa-trash text-xl text-red-500 cursor-pointer" onClick={() => dispatch({ type: "REMOVE_FORM_OTHER", payload: { index: index } })}></i>
                                 </div>
                             </label>
                             <div className="accordion-collapse collapse show" id={`collapse${index}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionCard">

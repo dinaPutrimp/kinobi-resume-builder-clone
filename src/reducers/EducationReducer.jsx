@@ -23,7 +23,7 @@ const EducationReducer = (state, action) => {
             });
         case "DRAG_AND_DROP_CARD_EDUCATION":
             return action.payload;
-        case "REMOVE_FORM":
+        case "REMOVE_FORM_EDUCATION":
             return state.filter((edu, index) => index !== action.payload.index);
         default:
             return state;

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createContext, useReducer } from "react";
 import useCombinedReducers from "use-combined-reducers";
 import EducationReducer from "../reducers/EducationReducer";
@@ -77,6 +78,7 @@ const ResumeContextProvider = (props) => {
         othersAchievement: useReducer(OthersReducer, initialState.others)
     });
     const { personalInfo, worksExperience, educationBackground, organizationsExperience, othersAchievement } = resume;
+
     return (
         <ResumeContext.Provider value={{ personalInfo, worksExperience, educationBackground, organizationsExperience, othersAchievement, dispatch }}>
             {props.children}
