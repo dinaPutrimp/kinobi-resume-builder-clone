@@ -51,7 +51,7 @@ const PersonalInfoForm = () => {
                     <textarea name="summary" id="summary" cols="30" rows="5" placeholder="Example: A fresh graduate in Information Systems, who has 2 years experiences as Software Engineer." className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.summary} onChange={handleChange}>{personalInfo.summary}</textarea>
                     <small className="text-xs">Recomended: 100 to 150 characters</small>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-center">
                     <Link to='/experience' className="block w-full py-2 px-4 bg-blue-900 text-white rounded uppercase font-medium md:w-auto md:self-end">Save & Continue</Link>
                 </div>
             </div>

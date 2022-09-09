@@ -37,3 +37,7 @@
 .accordion-item {
     border-radius: 10px;
 }
+
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
+}
