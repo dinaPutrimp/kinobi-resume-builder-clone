@@ -4,10 +4,10 @@ import { ResumeContext } from "../contexts/ResumeContext";
 
 
 const PersonalInfoForm = () => {
-    const { personalInfo, dispatch } = useContext(ResumeContext);
+    const { personalInfo, dispatchPersonal } = useContext(ResumeContext);
 
     const handleChange = (e) => {
-        dispatch({
+        dispatchPersonal({
             type: "CHANGE_PERSONAL",
             payload: { name: e.target.name, value: e.target.value }
         });
@@ -22,7 +22,7 @@ const PersonalInfoForm = () => {
             <div>
                 <div className="mb-4 md:mb-6">
                     <label htmlFor="name" className="block mb-2 text-xs">Name</label>
-                    <input type="text" name="name" id="name" placeholder="e.g. Joshua Tay" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.name} onChange={handleChange} />
+                    <input type="text" data-testid="input-name" name="name" id="name" placeholder="e.g. Joshua Tay" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 input-name" value={personalInfo.name} onChange={handleChange} />
                 </div>
                 <div className="mb-4 grid gap-4 md:grid-cols-2 md:mb-6">
                     <div>
@@ -48,7 +48,7 @@ const PersonalInfoForm = () => {
                 </div>
                 <div className="mb-4 md:mb-6">
                     <label htmlFor="summary" className="block text-xs mb-2">Short description about yourself</label>
-                    <textarea name="summary" id="summary" cols="30" rows="5" placeholder="Example: A fresh graduate in Information Systems, who has 2 years experiences as Software Engineer." className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.summary} onChange={handleChange}>{personalInfo.summary}</textarea>
+                    <textarea name="summary" data-testid="input-summary" id="summary" cols="30" rows="5" placeholder="Example: A fresh graduate in Information Systems, who has 2 years experiences as Software Engineer." className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={personalInfo.summary} onChange={handleChange}>{personalInfo.summary}</textarea>
                     <small className="text-xs">Recomended: 100 to 150 characters</small>
                 </div>
                 <div className="flex flex-col text-center">

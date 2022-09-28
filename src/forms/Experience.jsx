@@ -7,12 +7,12 @@ import { ResumeContext } from "../contexts/ResumeContext";
 
 const Experience = () => {
     const years = Array.from(new Array(40), (_, index) => (new Date()).getFullYear() - index);
-    const { worksExperience, dispatch } = useContext(ResumeContext);
+    const { worksExperience, dispatchWorkExp } = useContext(ResumeContext);
     const dragCardIndex = useRef();
     const dragOverCardIndex = useRef();
 
     const addExperience = () => {
-        dispatch({
+        dispatchWorkExp({
             type: "ADD_EXPERIENCE",
             payload: {
                 experience: {
@@ -32,14 +32,14 @@ const Experience = () => {
     }
 
     const handleChange = (e, idx) => {
-        dispatch({
+        dispatchWorkExp({
             type: "CHANGE_EXPERIENCE",
             payload: { name: e.target.name, value: e.target.value, index: idx }
         })
     }
 
     const handleChangeContent = (e, idx) => {
-        dispatch({
+        dispatchWorkExp({
             type: "CHANGE_JOBS",
             payload: { name: "jobdesk", value: e.target.value, index: idx }
         })
@@ -62,7 +62,7 @@ const Experience = () => {
         listOfCards.splice(dragOverCardIndex.current, 0, theDragTarget);
         dragCardIndex.current = null;
         dragOverCardIndex.current = null;
-        dispatch({
+        dispatchWorkExp({
             type: "DRAG_AND_DROP_CARD_EXPERIENCE",
             payload: listOfCards,
         });
@@ -82,7 +82,7 @@ const Experience = () => {
                                 <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
                                     <div className="flex items-center">
                                         <span className="mr-2">{experience.role} - {experience.company}</span>
-                                        <i className="fa fa-trash text-xl text-red-500 cursor-pointer" onClick={() => dispatch({ type: "REMOVE_FORM_EXPERIENCE", payload: { index: index } })}></i>
+                                        <i className="fa fa-trash text-xl text-red-500 cursor-pointer" onClick={() => dispatchWorkExp({ type: "REMOVE_FORM_EXPERIENCE", payload: { index: index } })}></i>
                                     </div>
                                 </label>
                                 <div className="accordion-collapse collapse show" id={`collapse${index}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionCard">
@@ -108,7 +108,7 @@ const Experience = () => {
                                         <div className="grid md:grid-cols-2 gap-4 mb-4 md:mb-6">
                                             <div>
                                                 <label htmlFor="startMonth" className="block mb-2 text-xs">Start Date (Month)</label>
-                                                <select name="startMonth" id="startMonth" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 overflow-y-scroll"
+                                                <select data-testid="select-month" name="startMonth" id="startMonth" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 overflow-y-scroll"
                                                     value={experience.startMonth} onChange={(e) => handleChange(e, index)}
                                                 >
                                                     <option value=""></option>
@@ -139,7 +139,7 @@ const Experience = () => {
                                             </div>
                                             <div>
                                                 <label htmlFor="endMonth" className="block mb-2 text-xs">End Date (Month)</label>
-                                                <select name="endMonth" id="endMonth" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 overflow-y-scroll" disabled={experience.current}
+                                                <select name="endMonth" data-testid="endmonth" id="endMonth" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 overflow-y-scroll" disabled={experience.current}
                                                     value={experience.endMonth} onChange={(e) => handleChange(e, index)}
                                                 >
                                                     <option value=""></option>
@@ -159,7 +159,7 @@ const Experience = () => {
                                             </div>
                                             <div>
                                                 <label htmlFor="endYear" className="block mb-2 text-xs">End Date (Year)</label>
-                                                <select name="endYear" id="endYear" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" disabled={experience.current} value={experience.endYear} onChange={(e) => handleChange(e, index)}
+                                                <select name="endYear" data-testid="endyear" id="endYear" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" disabled={experience.current} value={experience.endYear} onChange={(e) => handleChange(e, index)}
                                                 >
                                                     <option value=""></option>
                                                     {years.map((year, idx) => {
