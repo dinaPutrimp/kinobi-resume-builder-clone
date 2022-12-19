@@ -78,7 +78,7 @@ const Experience = () => {
                 <div className="accordion" id="accordionCard">
                     {worksExperience && worksExperience.map((experience, index) => {
                         return (
-                            <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`} onDragStart={(e) => handleDragStart(e, index)} onDragEnter={(e) => handleDragEnter(e, index)} onDragEnd={handleDropCard} draggable>
+                            <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3 cursor-pointer" id={`heading${index}`} onDragStart={(e) => handleDragStart(e, index)} onDragEnter={(e) => handleDragEnter(e, index)} onDragEnd={handleDropCard} draggable>
                                 <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
                                     <div className="flex items-center">
                                         <span className="mr-2">{experience.role} - {experience.company}</span>
