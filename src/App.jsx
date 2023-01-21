@@ -1,48 +1,52 @@
-import './App.css';
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from 'react-router-dom';
-import ResumeView from './component/ResumeView';
-import StepBar from './component/StepBar';
-import Complete from './forms/Complete';
-import Education from './forms/Education';
-import Experience from './forms/Experience';
-import OrganisationalExperience from './forms/OrganisationalExperience';
-import OthersExperience from './forms/OthersExperience';
-import PersonalInfoForm from './forms/PersonalInfoForm';
+import Resume from './layout/Resume';
+import NavBar from './layout/Navbar';
+import SignUp from './forms/auth/SignUp';
+import Login from './forms/auth/Login';
+import Dashboard from './layout/PrivateDashboard';
+import PublicDashboard from './layout/PublicDashboard';
+import PersonalInfoForm from './forms/resumes/PersonalInfoForm';
+import Experience from './forms/resumes/Experience';
+import Education from './forms/resumes/Education';
+import OrganisationalExperience from './forms/resumes/OrganisationalExperience';
+import OthersExperience from './forms/resumes/OthersExperience';
+import Complete from './forms/resumes/Complete';
 import StepperContextProvider from './contexts/StepperContext';
-import ResumeContextProvider from './contexts/ResumeContext';
-import Editor from './component/Editor';
-import DownloadButton from './component/DownloadButton';
+import FirebaseResumeContextProvider from './contexts/FirebaseResumeContext';
+import EditorContextProvider from './contexts/EditorContext';
 
 function App() {
   return (
-    <Router>
+    <FirebaseResumeContextProvider>
       <StepperContextProvider>
-        <ResumeContextProvider>
-          <div className="App max-w-full bf-violet-100 grid md:grid-cols-2 gap-4">
-            <div>
-              <StepBar />
-              <DownloadButton />
+        <EditorContextProvider>
+          <Router>
+            <div className="App max-w-full bf-violet-100">
+              <NavBar />
               <Routes>
-                <Route path='/' element={<PersonalInfoForm />} />
-                <Route path='/experience' element={<Experience />} />
-                <Route path='/education' element={<Education />} />
-                <Route path='/organisational' element={<OrganisationalExperience />} />
-                <Route path='/others' element={<OthersExperience />} />
-                <Route path='/complete' element={<Complete />} />
+                <Route path='/' element={<PublicDashboard />} />
+                <Route path='user' element={<Dashboard />} />
+                <Route path="resume/:resumeId" element={<Resume />}>
+                  <Route index element={<PersonalInfoForm />} />
+                  <Route path='personal' element={<PersonalInfoForm />} />
+                  <Route path='experience' element={<Experience />} />
+                  <Route path='education' element={<Education />} />
+                  <Route path='organisational' element={<OrganisationalExperience />} />
+                  <Route path='others' element={<OthersExperience />} />
+                  <Route path='complete' element={<Complete />} />
+                </Route>
+                <Route path="signup" element={<SignUp />} />
+                <Route path="login" element={<Login />} />
               </Routes>
             </div>
-            <div>
-              <Editor />
-              <ResumeView />
-            </div>
-          </div>
-        </ResumeContextProvider>
+          </Router>
+        </EditorContextProvider>
       </StepperContextProvider>
-    </Router>
+    </FirebaseResumeContextProvider>
   )
 }
 

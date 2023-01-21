@@ -1,4 +1,4 @@
-export const EditorReducer = (state = initialState, action) => {
+export const EditorReducer = (state, action) => {
     switch (action.type) {
         case "EDIT_TEXT":
             return {
