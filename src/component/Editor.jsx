@@ -11,7 +11,7 @@ const Editor = () => {
     }
 
     return (
-        <div className="shadow-t-side rounded-lg bg-white p-5 mb-3 flex flex-wrap hidden md:block">
+        <div className="shadow-t-side rounded-lg bg-white p-5 mb-3 flex-wrap hidden md:block">
             <div className="flex flex-wrap flex-initial items-center mr-3 m-2">
                 <div className="mr-4">
                     <i className="fa fa-font mr-2"></i>

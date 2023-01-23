@@ -1,4 +1,4 @@
-import { firebaseApp, db } from "../service/firebase";
+import { db } from "../service/firebase";
 
 export const createNewResume = async (currentUserId, newBlankResume) => {
     if (currentUserId) {

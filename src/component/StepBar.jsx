@@ -9,10 +9,6 @@ export const LocationDisplay = () => {
 const StepBar = () => {
     const { routes } = useContext(StepperContext);
     const location = useLocation();
-    // const indexOfPathname = routes.findIndex((route, index) => {
-    //     return route.route === location.pathname
-    // });
-    // use indexof that support in ie(internet explorer)
     const indexOfPathname = routes.map(route => route.route).indexOf(location.pathname.split('/').at(-1));
 
     return (
@@ -30,7 +26,6 @@ const StepBar = () => {
                     </NavLink>
                 )
             })}
-            {/* <div data-testid="location">{location.pathname}</div> */}
         </div>
     );
 }

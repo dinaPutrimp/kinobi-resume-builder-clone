@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 export const ResumeReducer = (state, action) => {
     switch (action.type) {
         case "TOGGLE_MODAL":
