@@ -63,8 +63,6 @@ const NavBar = () => {
         });
     }
 
-    console.log(authState)
-
     return (
         <div className="w-full bg-white flex justify-between px-6 py-6 shadow-md">
             <Link to={link} className="text-2xl md:text-4xl font-semibold text-blue-900">Kinobi Clone</Link>

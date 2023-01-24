@@ -1,7 +1,5 @@
-// import ReactDOMServer from "react-dom/server";
 import { useContext } from "react";
 import { deleteResume } from "../../actions/resumeActions";
-// import ResumeView from "../../component/ResumeView";
 import { AuthContext } from "../../contexts/AuthContext";
 import { FirebaseResumeContext } from "../../contexts/FirebaseResumeContext";
 
@@ -32,7 +30,6 @@ const ResumeDropdown = (props) => {
             payload: resumeState.resume.filter(resume => resume.id === props.id)[0]
         })
         const docu = document.getElementById("resume");
-        console.log(docu)
         const option = {
             margin: 0.2,
             filename: 'resume.pdf',
@@ -66,7 +63,6 @@ const ResumeDropdown = (props) => {
         }
     }
 
-    console.log(resumeState)
 
     return (
         <div className={`${props.id === props.toggleMenu.id && props.toggleMenu.toggle ? "flex" : "hidden"} flex-col w-32 h-fit rounded shadow-xl absolute -bottom-4 -right-8 bg-white z-10`}>

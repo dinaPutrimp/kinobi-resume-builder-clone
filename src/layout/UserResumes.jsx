@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { FirebaseResumeContext } from "../contexts/FirebaseResumeContext";
 import ResumeDropdown from "./popup/ResumeDropdown";
+import UpdatedDate from "./UpdatedDateTime";
 
 
 const UserResumes = () => {
@@ -47,10 +48,12 @@ const UserResumes = () => {
                                     <div className="flex justify-center bg-gray-100">
                                         <img src="https://img.freepik.com/free-vector/elegant-resume-template_1435-1245.jpg?t=st=1673445750~exp=1673446350~hmac=3ee4a1f73ca3a17c3a94f617298e12b9bdd4318b07fc88bfb6c422ad642efa05" className="w-full bg-cover bg-top" alt="" />
                                     </div>
-                                    <div className="bg-slate-100 p-2 rounded-br-2xl flex">
+                                    <div className="bg-slate-100 p-2 rounded flex">
                                         <div>
-                                            <p className="font-medium text-zinc-800 text-xs mb-6">{resume.projectName}</p>
-                                            <p className="text-xs">Subscribe to any plan unlock</p>
+                                            <p className="font-medium text-zinc-800 text-sm mb-6">{resume.projectName}</p>
+                                            <p className="text-xs text-gray-700 italic">
+                                                Updated <UpdatedDate date={resume.modifiedAt} />
+                                            </p>
                                         </div>
                                         <div className="w-11 h-8 hover:bg-zinc-200 flex justify-center items-center rounded-full" onClick={(e) => handleToggle(e, resume)}>
                                             <ul>
