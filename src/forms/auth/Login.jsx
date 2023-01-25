@@ -33,8 +33,6 @@ const Login = () => {
         }
     }
 
-    console.log(authState)
-
     const handleLoginWithGooge = async () => {
         try {
             const response = await loginWithGoogle();
@@ -55,9 +53,8 @@ const Login = () => {
     }
 
     useEffect(() => {
-        if (authState.user.uid) return navigate("/user");
+        if (authState.user?.uid) return navigate("/user");
     }, [authState.user.uid])
-
 
 
     return (

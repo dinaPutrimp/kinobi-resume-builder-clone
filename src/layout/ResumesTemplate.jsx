@@ -121,13 +121,11 @@ const ResumesTemplate = () => {
                         <img src={addFileSvg} className="w-32" alt="add_files_illustration" />
                     </div>
                     <button onClick={handleBlankDocument} className="uppercase font-medium tracking-wider bg-gray-300 text-blue-500 p-3">new blank</button>
-                    {/* <Link to="/create-resume" className="uppercase font-medium tracking-wider bg-gray-300 text-blue-500 p-3">new blank</Link> */}
                 </div>
                 <div className="flex justify-between items-center flex-wrap">
-                    <div className="bg-white mb-2 md:m4 md:mb-0  w-44 p-2 h-fit">
+                    <div className="bg-white mb-2 md:mr-4 md:mb-0 w-44 p-2 h-fit">
                         <div className="bg-white">
                             <div className="p-3 flex justify-center bg-gray-100">
-                                {/* <p className="text-xs text-black leading-5 text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, repellat. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, repellat</p> */}
                                 <img src={resumeSvg} className="w-28 z-0" alt="" />
                             </div>
                             <div className="bg-blue-900 p-2 rounded-br-2xl">
@@ -139,7 +137,6 @@ const ResumesTemplate = () => {
                     <div className="bg-white md:mr-4 w-44 p-2 h-fit">
                         <div className="bg-white">
                             <div className="p-3 flex justify-center bg-gray-100">
-                                {/* <p className="text-xs text-black leading-5 text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, repellat. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, repellat</p> */}
                                 <img src={resumeSvg} className="w-28 z-0" alt="" />
                             </div>
                             <div className="bg-blue-900 p-2 rounded-br-2xl">
@@ -151,7 +148,6 @@ const ResumesTemplate = () => {
                     <div className="bg-white md:mr-4 w-44 p-2 h-fit">
                         <div className="bg-white">
                             <div className="p-3 flex justify-center bg-gray-100">
-                                {/* <p className="text-xs text-black leading-5 text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, repellat. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, repellat</p> */}
                                 <img src={resumeSvg} className="w-28 z-0" alt="" />
                             </div>
                             <div className="bg-blue-900 p-2 rounded-br-2xl">
@@ -163,7 +159,6 @@ const ResumesTemplate = () => {
                     <div className="bg-white md:mr-4 w-44 p-2 h-fit">
                         <div className="bg-white">
                             <div className="p-3 flex justify-center bg-gray-100">
-                                {/* <p className="text-xs text-black leading-5 text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, repellat. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius, repellat</p> */}
                                 <img src={resumeSvg} className="w-28 z-0" alt="" />
                             </div>
                             <div className="bg-blue-900 p-2 rounded-br-2xl">

@@ -1,15 +1,20 @@
 import { useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-import { getUserData, logout } from "../actions/authActions";
+import { getUserData } from "../actions/authActions";
 import { FirebaseResumeContext } from "../contexts/FirebaseResumeContext";
 import { getResumeData } from "../actions/resumeActions";
+import UserMenu from "./popup/UserMenu";
 
-const NavBar = () => {
+const NavBar = (props) => {
     const { authState, dispatchAuth } = useContext(AuthContext);
     const { dispatchResume } = useContext(FirebaseResumeContext);
-    const navigate = useNavigate();
     const link = authState.user.uid ? "/user" : "/";
+
+    const handleToggleUser = (e) => {
+        e.stopPropagation();
+        props.toggle();
+    }
 
     useEffect(() => {
         if (authState.user.uid) {
@@ -54,30 +59,21 @@ const NavBar = () => {
         }
     }, [authState.user.uid])
 
-    const handleLogout = () => {
-        logout();
-        navigate("/");
-        return dispatchAuth({
-            type: "LOGOUT",
-            payload: {}
-        });
-    }
-
     return (
         <div className="w-full bg-white flex justify-between px-6 py-6 shadow-md">
             <Link to={link} className="text-2xl md:text-4xl font-semibold text-blue-900">Kinobi Clone</Link>
             <div className="flex justify-around items-center">
                 {authState && authState.user.uid ?
                     authState.user.displayName === null ?
-                        <>
-                            <div className="rounded-full w-8 h-8 md:w-10 md:h-10 bg-green-400 flex justify-center items-center text-center mr-4 font-medium">{authState.currentUser.initials}</div>
-                            <div className="cursor-pointer font-medium" onClick={handleLogout}>logout</div>
-                        </>
+                        <div className="relative">
+                            <div className="rounded-full w-8 h-8 md:w-10 md:h-10 bg-green-400 flex justify-center items-center text-center mr-4 font-medium uppercase cursor-pointer" onClick={handleToggleUser}>{authState.currentUser.initials}</div>
+                            <UserMenu toggle={props.toggleValue} initials={authState.currentUser.initials} />
+                        </div>
                         :
-                        <>
-                            <div className="rounded-full w-8 h-8 md:w-10 md:h-10 bg-green-400 flex justify-center items-center text-center mr-4 font-medium">{authState.user.displayName[0]}</div>
-                            <div className="cursor-pointer font-medium" onClick={handleLogout}>logout</div>
-                        </>
+                        <div className="relative">
+                            <div className="rounded-full w-8 h-8 md:w-10 md:h-10 bg-green-400 flex justify-center items-center text-center mr-4 font-medium uppercase cursor-pointer" onClick={handleToggleUser}>{authState.user.displayName[0]}</div>
+                            <UserMenu toggle={props.toggleValue} initials={authState.user.displayName[0]} />
+                        </div>
                     :
                     <>
                         <Link to="/signup" className="cursor-pointer mr-4 px-3 md:px-4 py-1 border-2 border-blue-900 rounded text-blue-900 text-sm md:text-base font-semibold">SignUp</Link>

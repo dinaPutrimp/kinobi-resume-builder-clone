@@ -18,30 +18,34 @@ import Complete from "./forms/resumes/Complete";
 import StepperContextProvider from "./contexts/StepperContext";
 import FirebaseResumeContextProvider from "./contexts/FirebaseResumeContext";
 import EditorContextProvider from "./contexts/EditorContext";
+import { useState } from "react";
 
 function App() {
+  const [toggle, setToggle] = useState(false);
   return (
     <FirebaseResumeContextProvider>
       <StepperContextProvider>
         <EditorContextProvider>
           <Router>
-            <div className="App max-w-full bf-violet-100">
-              <NavBar />
-              <Routes>
-                <Route path="/" element={<PublicDashboard />} />
-                <Route path="user" element={<Dashboard />} />
-                <Route path="resume/:resumeId" element={<Resume />}>
-                  <Route index element={<PersonalInfoForm />} />
-                  <Route path="personal" element={<PersonalInfoForm />} />
-                  <Route path="experience" element={<Experience />} />
-                  <Route path="education" element={<Education />} />
-                  <Route path="organisational" element={<OrganisationalExperience />} />
-                  <Route path="others" element={<OthersExperience />} />
-                  <Route path="complete" element={<Complete />} />
-                </Route>
-                <Route path="signup" element={<SignUp />} />
-                <Route path="login" element={<Login />} />
-              </Routes>
+            <div className="App max-w-full bf-violet-100" onClick={() => setToggle(false)}>
+              <NavBar toggle={() => setToggle(!toggle)} toggleValue={toggle} />
+              <div>
+                <Routes>
+                  <Route path="/" element={<PublicDashboard />} />
+                  <Route path="user" element={<Dashboard />} />
+                  <Route path="resume/:resumeId" element={<Resume />}>
+                    <Route index element={<PersonalInfoForm />} />
+                    <Route path="personal" element={<PersonalInfoForm />} />
+                    <Route path="experience" element={<Experience />} />
+                    <Route path="education" element={<Education />} />
+                    <Route path="organisational" element={<OrganisationalExperience />} />
+                    <Route path="others" element={<OthersExperience />} />
+                    <Route path="complete" element={<Complete />} />
+                  </Route>
+                  <Route path="signup" element={<SignUp />} />
+                  <Route path="login" element={<Login />} />
+                </Routes>
+              </div>
             </div>
           </Router>
         </EditorContextProvider>
