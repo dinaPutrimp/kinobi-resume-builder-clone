@@ -19,6 +19,7 @@ import StepperContextProvider from "./contexts/StepperContext";
 import FirebaseResumeContextProvider from "./contexts/FirebaseResumeContext";
 import EditorContextProvider from "./contexts/EditorContext";
 import { useState } from "react";
+import ResetPassword from "./forms/resumes/ResetPassword";
 
 function App() {
   const [toggle, setToggle] = useState(false);
@@ -44,6 +45,7 @@ function App() {
                   </Route>
                   <Route path="signup" element={<SignUp />} />
                   <Route path="login" element={<Login />} />
+                  <Route path="reset-password" element={<ResetPassword />} />
                 </Routes>
               </div>
             </div>

@@ -1,6 +1,13 @@
 /* eslint-disable no-case-declarations */
 export const ResumeReducer = (state, action) => {
     switch (action.type) {
+        case "LOGOUT":
+            return {
+                ...state,
+                resume: action.payload,
+                currentResume: {},
+                resumeError: null
+            }
         case "TOGGLE_MODAL":
             return {
                 ...state,

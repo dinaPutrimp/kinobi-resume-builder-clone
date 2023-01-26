@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { login, loginWithGoogle } from "../../actions/authActions";
 import { FirebaseResumeContext } from "../../contexts/FirebaseResumeContext";
@@ -78,9 +78,12 @@ const Login = () => {
                         <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">Email</label>
                         <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-2">
                         <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">Password</label>
                         <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
+                    </div>
+                    <div className="mb-6 text-right">
+                        <Link to="/reset-password" className="text-blue-700 text-xs cursor-pointer">Forget password?</Link>
                     </div>
                     <input type="submit" value="Login" className="block w-full text-sm md:text-base text-white rounded font-medium bg-dark-blue-grad p-2 cursor-pointer" />
                 </form>

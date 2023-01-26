@@ -111,8 +111,6 @@ const ResumesTemplate = () => {
         }
     }
 
-    console.log(resumeState)
-
     return (
         <div className="max-w-full p-6 bg-violet-100">
             <div className="flex flex-wrap grid-rows-1">
