@@ -38,8 +38,8 @@ const SignUp = () => {
     }
 
     useEffect(() => {
-        if (authState?.user.uid) return navigate("/");
-    }, [authState?.user.uid])
+        if (authState.user?.uid) return navigate("/user");
+    }, [authState.user.uid])
 
     return (
         <div className="max-w-full grid md:grid-cols-2">

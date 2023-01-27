@@ -9,7 +9,7 @@ import UserMenu from "./popup/UserMenu";
 const NavBar = (props) => {
     const { authState, dispatchAuth } = useContext(AuthContext);
     const { dispatchResume } = useContext(FirebaseResumeContext);
-    const link = authState.user.uid ? "/user" : "/";
+    const link = authState.user?.uid ? "/user" : "/";
 
     const handleToggleUser = (e) => {
         e.stopPropagation();
@@ -57,7 +57,7 @@ const NavBar = (props) => {
                 })
             })
         }
-    }, [authState.user.uid])
+    }, [authState.user?.uid])
 
     return (
         <div className="w-full bg-white flex justify-between px-6 py-6 shadow-md">

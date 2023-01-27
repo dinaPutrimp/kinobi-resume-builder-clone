@@ -12,6 +12,8 @@ const Login = () => {
     const { authState, dispatchAuth } = useContext(AuthContext);
     const { dispatchResume } = useContext(FirebaseResumeContext);
 
+    console.log(authState)
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -28,7 +30,7 @@ const Login = () => {
         } catch (err) {
             dispatchAuth({
                 type: "LOGIN_ERROR",
-                payload: response.message
+                payload: err.message
             })
         }
     }
@@ -47,13 +49,14 @@ const Login = () => {
         } catch (err) {
             dispatchAuth({
                 type: "LOGIN_ERROR",
-                payload: response.message
+                payload: err.message
             })
+            console.log(err.code, err.message)
         }
     }
 
     useEffect(() => {
-        if (authState.user?.uid) return navigate("/user");
+        if (authState.user.uid) return navigate("/user");
     }, [authState.user.uid])
 
 

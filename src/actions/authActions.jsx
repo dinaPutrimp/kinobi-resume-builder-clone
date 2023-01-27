@@ -3,44 +3,29 @@ import { firebaseApp, db } from "../service/firebase";
 
 
 export const login = async (email, password) => {
-    const user = await firebaseApp.auth().signInWithEmailAndPassword(email, password).catch(err => {
-        return err;
-    })
-
-    return user;
+    return await firebaseApp.auth().signInWithEmailAndPassword(email, password);
 }
 
 export const loginWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    const user = await firebaseApp.auth().signInWithPopup(provider).catch(err => {
-        return err
-    })
-
+    const user = await firebaseApp.auth().signInWithPopup(provider);
     return user
 }
 
 export const signup = async (newUsers) => {
     if (!newUsers) return;
-    try {
-        const users = await firebaseApp.auth().createUserWithEmailAndPassword(newUsers.email, newUsers.password);
-        await db.collection("users").doc(users.user.uid).set({
-            firstName: newUsers.firstName,
-            lastName: newUsers.lastName,
-            initials: newUsers.firstName[0]
-        });
-        users.user.sendEmailVerification();
-        return users;
-    } catch (err) {
-        return err;
-    }
+    const users = await firebaseApp.auth().createUserWithEmailAndPassword(newUsers.email, newUsers.password);
+    await db.collection("users").doc(users.user.uid).set({
+        firstName: newUsers.firstName,
+        lastName: newUsers.lastName,
+        initials: newUsers.firstName[0]
+    });
+    users.user.sendEmailVerification();
+    return users;
 }
 
 export const logout = async () => {
-    const logout = await firebaseApp.auth().signOut().catch(err => {
-        return err;
-    })
-
-    return logout;
+    return await firebaseApp.auth().signOut();
 }
 
 export const getState = async () => {
@@ -54,6 +39,5 @@ export const getUserData = async (uid) => {
 }
 
 export const sendResetPassword = async (email) => {
-    const reset = await firebaseApp.auth().sendPasswordResetEmail(email).catch(err => console.log(err))
-    return reset
+    return await firebaseApp.auth().sendPasswordResetEmail(email);
 }
