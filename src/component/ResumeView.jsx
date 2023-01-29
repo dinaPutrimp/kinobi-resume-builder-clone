@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import DOMPurify from "isomorphic-dompurify";
 import { useContext } from "react";
 import { EditorContext } from "../contexts/EditorContext";
@@ -17,8 +18,8 @@ const ResumeView = () => {
                     <div className={`${editorState.fontSize} text-blue-500 underline-offsite-2`} style={{ lineHeight: `${editorState.lineHeight}px` }}>
                         <span>{resumeState.currentResume.personal.phone}</span>
                         <span>{resumeState.currentResume.personal.email !== "" ? ` | ${resumeState.currentResume.personal.email}` : ""}</span>
-                        <span>{resumeState.currentResume.personal.linkedin !== "" ? <a target="_blank" href={resumeState.currentResume.personal.linkedin}> | {resumeState.currentResume.personal.linkedin}</a> : ""}</span>
-                        <span>{resumeState.currentResume.personal.portofolio !== "" ? <a target="_blank" href={resumeState.currentResume.personal.portofolio}> | {resumeState.currentResume.personal.portofolio}</a> : ""}</span>
+                        <span>{resumeState.currentResume.personal.linkedin !== "" ? <a target="_blank" href={resumeState.currentResume.personal.linkedin} rel="noreferrer"> | {resumeState.currentResume.personal.linkedin}</a> : ""}</span>
+                        <span>{resumeState.currentResume.personal.portofolio !== "" ? <a target="_blank" href={resumeState.currentResume.personal.portofolio} rel="noreferrer"> | {resumeState.currentResume.personal.portofolio}</a> : ""}</span>
                     </div>
                     <div className={`${editorState.fontSize} text-gray-400 mb-1.5`} style={{ lineHeight: `${editorState.lineHeight}px` }}>{resumeState.currentResume.personal.address}</div>
                     <div className={editorState.fontSize} style={{ lineHeight: `${editorState.lineHeight}px` }}>

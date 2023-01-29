@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ResumeView from "../component/ResumeView";

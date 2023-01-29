@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
 import moment from "moment";
 import { useEffect, useState } from "react";
 

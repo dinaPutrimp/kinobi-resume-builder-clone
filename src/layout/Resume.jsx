@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import "./../App.css";
 import { Outlet } from 'react-router-dom';
 import Editor from "../component/Editor";

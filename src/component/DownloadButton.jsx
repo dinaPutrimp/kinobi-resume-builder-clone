@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/react-in-jsx-scope */
 import { useContext } from "react";
 import { StepperContext } from "../contexts/StepperContext";
 

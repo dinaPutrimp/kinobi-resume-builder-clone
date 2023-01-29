@@ -1,4 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable react/react-in-jsx-scope */
+import { useNavigate } from "react-router-dom";
 import addFileSvg from "../assets/undraw_add_files.svg";
 import resumeSvg from "../assets/undraw_hiring.svg";
 import { createNewResume } from "../actions/resumeActions";
@@ -7,8 +9,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import { FirebaseResumeContext } from "../contexts/FirebaseResumeContext";
 
 const ResumesTemplate = () => {
-    const { authState, dispatchAuth } = useContext(AuthContext);
-    const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
+    const { authState } = useContext(AuthContext);
+    const { dispatchResume } = useContext(FirebaseResumeContext);
     const navigate = useNavigate();
 
     const handleBlankDocument = async () => {
@@ -34,7 +36,7 @@ const ResumesTemplate = () => {
                     endMonth: '',
                     endYear: '',
                     current: false,
-                    jobdesk: '<ul><li class=\"list-disc\">Colaborate with team members</li></ul>',
+                    jobdesk: '<ul><li class=\\"list-disc\\">Colaborate with team members</li></ul>',
                 }
             ],
             educations: [
@@ -49,7 +51,7 @@ const ResumesTemplate = () => {
                     description: '',
                     gpa: 0,
                     max: '',
-                    achievment: '<ul><li class=\"list-disc\">Lead team for web development project</li></ul>',
+                    achievment: '<ul><li class=\\"list-disc\\">Lead team for web development project</li></ul>',
                 }
             ],
             organizations: [
@@ -62,7 +64,7 @@ const ResumesTemplate = () => {
                     endMonth: '',
                     endYear: '',
                     current: false,
-                    description: '<ul><li class=\"list-disc\">Lead team for web development project</li></ul>'
+                    description: '<ul><li class=\\"list-disc\\">Lead team for web development project</li></ul>'
                 }
             ],
             others: [
@@ -77,35 +79,28 @@ const ResumesTemplate = () => {
         }
         try {
             const response = await createNewResume(authState.user.uid, newBlankResume);
-            if (response.hasOwnProperty("message")) {
-                dispatchResume({
-                    type: "CREATE_ERROR",
-                    payload: response.message
-                })
-            } else {
-                dispatchResume({
-                    type: "ADD_NEW_RESUME",
-                    payload: {
-                        id: response,
-                        ...newBlankResume
-                    }
-                })
-                dispatchResume({
-                    type: "FETCH_CURRENT_RESUME",
-                    payload: {
-                        id: response,
-                        ...newBlankResume
-                    }
-                })
-                navigate('/resume/' + response);
-            }
+            dispatchResume({
+                type: "ADD_NEW_RESUME",
+                payload: {
+                    id: response,
+                    ...newBlankResume
+                }
+            })
+            dispatchResume({
+                type: "FETCH_CURRENT_RESUME",
+                payload: {
+                    id: response,
+                    ...newBlankResume
+                }
+            })
+            navigate('/resume/' + response);
             dispatchResume({
                 type: "TOGGLE_MODAL",
                 payload: true
             })
         } catch (err) {
             dispatchResume({
-                type: "FETCH_ERROR",
+                type: "CREATE_ERROR",
                 payload: err.message
             })
         }

@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { updateCompleteData } from "../../actions/resumeActions";

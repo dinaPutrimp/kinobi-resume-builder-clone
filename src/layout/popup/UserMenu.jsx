@@ -1,4 +1,6 @@
-import { useContext, useState } from "react";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { getState, logout } from "../../actions/authActions";
 import { AuthContext } from "../../contexts/AuthContext";

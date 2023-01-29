@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/react-in-jsx-scope */
 import { useRef } from "react";
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -40,6 +42,7 @@ const OthersExperience = () => {
         dragOverCardIndex.current = idx;
     }
 
+    // eslint-disable-next-line no-unused-vars
     const handleDropCard = (e) => {
         const listOfCards = [...resumeState.currentResume.others];
         const theDragTarget = listOfCards[dragCardIndex.current];

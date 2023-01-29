@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";

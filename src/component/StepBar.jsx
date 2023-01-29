@@ -1,11 +1,8 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useContext } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { StepperContext } from "../contexts/StepperContext";
 
-export const LocationDisplay = () => {
-    const location = useLocation();
-    return <div data-testid="location">{location.pathname}</div>
-}
 const StepBar = () => {
     const { routes } = useContext(StepperContext);
     const location = useLocation();

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/react-in-jsx-scope */
 import { useRef } from "react";
 import { useContext } from "react";
 import ContentEditable from "react-contenteditable";
@@ -26,7 +28,7 @@ const OrganisationalExperience = () => {
                 endMonth: '',
                 endYear: '',
                 current: false,
-                description: '<ul><li class=\"list-disc\"></li></ul>'
+                description: '<ul><li class=\\"list-disc\\"></li></ul>'
             }
         });
     }
@@ -47,6 +49,7 @@ const OrganisationalExperience = () => {
         dragOverCardIndex.current = idx;
     }
 
+    // eslint-disable-next-line no-unused-vars
     const handleDropCard = (e) => {
         const listOfCards = [...resumeState.currentResume.organizations];
         const theDragTarget = listOfCards[dragCardIndex.current];

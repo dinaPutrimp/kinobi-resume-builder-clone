@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useContext, useRef } from "react";
 import ContentEditable from "react-contenteditable";
 import { Link, useLocation } from "react-router-dom";
@@ -8,7 +9,7 @@ import { FirebaseResumeContext } from "../../contexts/FirebaseResumeContext";
 const Education = () => {
     const location = useLocation();
     const years = Array.from(new Array(40), (val, index) => (new Date()).getFullYear() - index);
-    const { authState, dispatchAuth } = useContext(AuthContext);
+    const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const dragCardIndex = useRef();
     const dragOverCardIndex = useRef();
@@ -27,7 +28,7 @@ const Education = () => {
                 description: '',
                 gpa: 0,
                 max: '',
-                achievment: '<ul><li class=\"list-disc\"></li></ul>',
+                achievment: '<ul><li class=\\"list-disc\\"></li></ul>',
             }
         });
     }
@@ -48,6 +49,7 @@ const Education = () => {
         dragOverCardIndex.current = idx;
     }
 
+    // eslint-disable-next-line no-unused-vars
     const handleDropCard = (e) => {
         const listOfCards = [...resumeState.currentResume.educations];
         const theDragTarget = listOfCards[dragCardIndex.current];

@@ -1,10 +1,11 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useContext, useRef } from "react";
 import { updateProjectName } from "../../actions/resumeActions";
 import { AuthContext } from "../../contexts/AuthContext";
 import { FirebaseResumeContext } from "../../contexts/FirebaseResumeContext";
 
 const Modal = () => {
-    const { authState, dispatchAuth } = useContext(AuthContext);
+    const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const ref = useRef(null);
 

@@ -1,3 +1,6 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { deleteResume } from "../../actions/resumeActions";
 import { AuthContext } from "../../contexts/AuthContext";

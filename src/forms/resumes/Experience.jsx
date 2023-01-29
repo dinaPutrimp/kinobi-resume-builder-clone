@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useRef } from "react";
 import { useContext } from "react";
 import ContentEditable from "react-contenteditable";
@@ -28,7 +29,7 @@ const Experience = () => {
                 endMonth: '',
                 endYear: '',
                 current: false,
-                jobdesk: '<ul><li class=\"list-disc\"></li></ul>',
+                jobdesk: '<ul><li class=\\"list-disc\\"></li></ul>',
             }
         });
     }
@@ -49,6 +50,7 @@ const Experience = () => {
         dragOverCardIndex.current = idx;
     }
 
+    // eslint-disable-next-line no-unused-vars
     const handleDropCard = (e) => {
         const listOfCards = [...resumeState.currentResume.experiences];
         const theDragTarget = listOfCards[dragCardIndex.current];
