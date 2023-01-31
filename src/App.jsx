@@ -1,8 +1,10 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/react-in-jsx-scope */
 import './App.css';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
 } from 'react-router-dom';
 import ResumeView from './component/ResumeView';
 import StepBar from './component/StepBar';
@@ -27,12 +29,12 @@ function App() {
               <StepBar />
               <DownloadButton />
               <Routes>
-                <Route path='/' element={<PersonalInfoForm />} />
-                <Route path='/experience' element={<Experience />} />
-                <Route path='/education' element={<Education />} />
-                <Route path='/organisational' element={<OrganisationalExperience />} />
-                <Route path='/others' element={<OthersExperience />} />
-                <Route path='/complete' element={<Complete />} />
+                <Route path="/" element={<PersonalInfoForm />} />
+                <Route path="/experience" element={<Experience />} />
+                <Route path="/education" element={<Education />} />
+                <Route path="/organisational" element={<OrganisationalExperience />} />
+                <Route path="/others" element={<OthersExperience />} />
+                <Route path="/complete" element={<Complete />} />
               </Routes>
             </div>
             <div>
@@ -43,7 +45,7 @@ function App() {
         </ResumeContextProvider>
       </StepperContextProvider>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

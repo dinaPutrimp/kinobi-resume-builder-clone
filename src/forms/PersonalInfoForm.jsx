@@ -1,17 +1,21 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { ResumeContext } from "../contexts/ResumeContext";
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable indent */
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { ResumeContext } from '../contexts/ResumeContext';
 
-
-const PersonalInfoForm = () => {
+function PersonalInfoForm() {
     const { personalInfo, dispatch } = useContext(ResumeContext);
 
     const handleChange = (e) => {
         dispatch({
-            type: "CHANGE_PERSONAL",
-            payload: { name: e.target.name, value: e.target.value }
+            type: 'CHANGE_PERSONAL',
+            payload: { name: e.target.name, value: e.target.value },
         });
-    }
+    };
 
     return (
         <div className="p-3 shadow-t-side rounded-lg bg-white">
@@ -52,7 +56,7 @@ const PersonalInfoForm = () => {
                     <small className="text-xs">Recomended: 100 to 150 characters</small>
                 </div>
                 <div className="flex flex-col text-center">
-                    <Link to='/experience' className="block w-full py-2 px-4 bg-blue-900 text-white rounded uppercase font-medium md:w-auto md:self-end">Save & Continue</Link>
+                    <Link to="/experience" className="block w-full py-2 px-4 bg-blue-900 text-white rounded uppercase font-medium md:w-auto md:self-end">Save & Continue</Link>
                 </div>
             </div>
         </div>

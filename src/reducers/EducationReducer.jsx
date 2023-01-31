@@ -1,33 +1,35 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable indent */
 const EducationReducer = (state, action) => {
     switch (action.type) {
-        case "ADD_EDUCATION":
+        case 'ADD_EDUCATION':
             return [
                 ...state,
-                action.payload.education
+                action.payload.education,
             ];
-        case "CHANGE_EDUCATION":
+        case 'CHANGE_EDUCATION':
             return state.map((edu, idx) => {
                 if (Number(idx) === Number(action.payload.index)) {
-                    return { ...edu, [action.payload.name]: action.payload.value }
+                    return { ...edu, [action.payload.name]: action.payload.value };
                 }
                 return edu;
             });
-        case "CHANGE_ACHIEVMENT":
+        case 'CHANGE_ACHIEVMENT':
             return state.map((edu, idx) => {
                 if (Number(idx) === Number(action.payload.index)) {
-                    if (action.payload.name === "achievment") {
-                        return { ...edu, [action.payload.name]: action.payload.value }
+                    if (action.payload.name === 'achievment') {
+                        return { ...edu, [action.payload.name]: action.payload.value };
                     }
                 }
                 return edu;
             });
-        case "DRAG_AND_DROP_CARD_EDUCATION":
+        case 'DRAG_AND_DROP_CARD_EDUCATION':
             return action.payload;
-        case "REMOVE_FORM_EDUCATION":
+        case 'REMOVE_FORM_EDUCATION':
             return state.filter((edu, index) => index !== action.payload.index);
         default:
             return state;
     }
-}
+};
 
 export default EducationReducer;
