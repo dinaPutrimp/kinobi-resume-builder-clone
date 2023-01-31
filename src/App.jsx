@@ -1,26 +1,30 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable linebreak-style */
 /* eslint-disable react/react-in-jsx-scope */
 import {
   BrowserRouter as Router,
   Routes,
-  Route
-} from "react-router-dom";
-import Resume from "./layout/Resume";
-import NavBar from "./layout/Navbar";
-import SignUp from "./forms/auth/SignUp";
-import Login from "./forms/auth/Login";
-import Dashboard from "./layout/PrivateDashboard";
-import PublicDashboard from "./layout/PublicDashboard";
-import PersonalInfoForm from "./forms/resumes/PersonalInfoForm";
-import Experience from "./forms/resumes/Experience";
-import Education from "./forms/resumes/Education";
-import OrganisationalExperience from "./forms/resumes/OrganisationalExperience";
-import OthersExperience from "./forms/resumes/OthersExperience";
-import Complete from "./forms/resumes/Complete";
-import StepperContextProvider from "./contexts/StepperContext";
-import FirebaseResumeContextProvider from "./contexts/FirebaseResumeContext";
-import EditorContextProvider from "./contexts/EditorContext";
-import { useState } from "react";
-import ResetPassword from "./forms/resumes/ResetPassword";
+  Route,
+} from 'react-router-dom';
+import { useState } from 'react';
+import Resume from './layout/Resume';
+import NavBar from './layout/Navbar';
+import SignUp from './forms/auth/SignUp';
+import Login from './forms/auth/Login';
+import Dashboard from './layout/PrivateDashboard';
+import PublicDashboard from './layout/PublicDashboard';
+import PersonalInfoForm from './forms/resumes/PersonalInfoForm';
+import Experience from './forms/resumes/Experience';
+import Education from './forms/resumes/Education';
+import OrganisationalExperience from './forms/resumes/OrganisationalExperience';
+import OthersExperience from './forms/resumes/OthersExperience';
+import Complete from './forms/resumes/Complete';
+import StepperContextProvider from './contexts/StepperContext';
+import FirebaseResumeContextProvider from './contexts/FirebaseResumeContext';
+import EditorContextProvider from './contexts/EditorContext';
+import ResetPassword from './forms/resumes/ResetPassword';
 
 function App() {
   const [toggle, setToggle] = useState(false);
@@ -54,7 +58,7 @@ function App() {
         </EditorContextProvider>
       </StepperContextProvider>
     </FirebaseResumeContextProvider>
-  )
+  );
 }
 
-export default App
+export default App;

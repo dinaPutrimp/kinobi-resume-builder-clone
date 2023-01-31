@@ -1,71 +1,80 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/button-has-type */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable consistent-return */
+/* eslint-disable linebreak-style */
+/* eslint-disable indent */
 /* eslint-disable react/react-in-jsx-scope */
-import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
-import { login, loginWithGoogle } from "../../actions/authActions";
-import { FirebaseResumeContext } from "../../contexts/FirebaseResumeContext";
+import { useContext, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import { login, loginWithGoogle } from '../../actions/authActions';
+import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
-const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const { authState, dispatchAuth } = useContext(AuthContext);
     const { dispatchResume } = useContext(FirebaseResumeContext);
-
-    console.log(authState)
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const response = await login(email, password);
             dispatchAuth({
-                type: "LOGIN",
-                payload: response.user
-            })
+                type: 'LOGIN',
+                payload: response.user,
+            });
 
             dispatchResume({
-                type: "TOGGLE_MODAL",
-                payload: false
-            })
+                type: 'TOGGLE_MODAL',
+                payload: false,
+            });
         } catch (err) {
             dispatchAuth({
-                type: "LOGIN_ERROR",
-                payload: err.message
-            })
+                type: 'LOGIN_ERROR',
+                payload: err.message,
+            });
         }
-    }
+    };
 
     const handleLoginWithGooge = async () => {
         try {
             const response = await loginWithGoogle();
             dispatchAuth({
-                type: "LOGIN",
-                payload: response.user
-            })
+                type: 'LOGIN',
+                payload: response.user,
+            });
             dispatchResume({
-                type: "TOGGLE_MODAL",
-                payload: false
-            })
+                type: 'TOGGLE_MODAL',
+                payload: false,
+            });
         } catch (err) {
             dispatchAuth({
-                type: "LOGIN_ERROR",
-                payload: err.message
-            })
-            console.log(err.code, err.message)
+                type: 'LOGIN_ERROR',
+                payload: err.message,
+            });
         }
-    }
+    };
 
     useEffect(() => {
-        if (authState.user.uid) return navigate("/user");
-    }, [authState.user.uid])
-
+        if (authState.user.uid) return navigate('/user');
+    }, [authState.user.uid]);
 
     return (
         <div className="max-w-full grid md:grid-cols-2">
             <div className="bg-blue-grad p-20 relative order-last hidden md:block">
                 <div className="backdrop-blur bg-white/30 p-8">
-                    <p className="text-6xl lg:text-8xl text-white">Platform <span className="text-blue-700">CV Builder</span> #1 di Asia</p>
+                    <p className="text-6xl lg:text-8xl text-white">
+                        Platform
+                        <span className="text-blue-700">CV Builder</span>
+                        {' '}
+                        #1 di Asia
+                    </p>
                 </div>
                 <small className="absolute bottom-2 right-2 text-white">Design by Edupark-Sign-up-page</small>
             </div>
@@ -74,9 +83,7 @@ const Login = () => {
                     <p className="font-bold text-xl lg:text-2xl text-black mb-1">Welcome back,</p>
                     <p className="text-sm text-gray-400 mb-2">Please sign in here.</p>
                     {authState && authState.authError && authState.authError.loginError && (
-                        <>
-                            <small className="text-red-500 text-xs mb-6 italic">{authState.authError.loginError}</small>
-                        </>
+                        <small className="text-red-500 text-xs mb-6 italic">{authState.authError.loginError}</small>
                     )}
                     <div className="mb-4">
                         <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">Email</label>

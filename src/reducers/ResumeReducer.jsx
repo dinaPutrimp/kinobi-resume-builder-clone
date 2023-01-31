@@ -1,273 +1,281 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-shadow */
+/* eslint-disable max-len */
+/* eslint-disable linebreak-style */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable indent */
 /* eslint-disable no-case-declarations */
 export const ResumeReducer = (state, action) => {
     switch (action.type) {
-        case "LOGOUT":
+        case 'LOGOUT':
             return {
                 ...state,
                 resume: action.payload,
                 currentResume: {},
-                resumeError: null
-            }
-        case "TOGGLE_MODAL":
+                resumeError: null,
+            };
+        case 'TOGGLE_MODAL':
             return {
                 ...state,
-                modal: action.payload
-            }
-        case "ADD_NEW_RESUME":
+                modal: action.payload,
+            };
+        case 'ADD_NEW_RESUME':
             return {
                 ...state,
-                resume: [...state.resume, action.payload]
-            }
-        case "FETCH_RESUME":
-            const index = state.resume.findIndex(res => res.id === action.payload.id)
+                resume: [...state.resume, action.payload],
+            };
+        case 'FETCH_RESUME':
+            const index = state.resume.findIndex((res) => res.id === action.payload.id);
             if (index > -1) {
-                return state
-            } else {
-                return {
-                    ...state,
-                    resume: [...state.resume, action.payload],
-                    resumeError: null
-                }
+                return state;
             }
-        case "UPDATE_FETCH_RESUME":
             return {
                 ...state,
-                resume: state.resume.map(resume => {
+                resume: [...state.resume, action.payload],
+                resumeError: null,
+            };
+
+        case 'UPDATE_FETCH_RESUME':
+            return {
+                ...state,
+                resume: state.resume.map((resume) => {
                     if (resume.id === action.payload.id) {
-                        return action.payload
+                        return action.payload;
                     }
-                    return resume
+                    return resume;
                 }),
-                resumeError: null
-            }
-        case "UPDATE_TITLE_RESUME":
+                resumeError: null,
+            };
+        case 'UPDATE_TITLE_RESUME':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    projectName: action.payload.value
-                }
-            }
-        case "FETCH_CURRENT_RESUME":
-            return { ...state, currentResume: action.payload, resumeError: null }
-        case "DELETE_RESUME":
+                    projectName: action.payload.value,
+                },
+            };
+        case 'FETCH_CURRENT_RESUME':
+            return { ...state, currentResume: action.payload, resumeError: null };
+        case 'DELETE_RESUME':
             return {
                 ...state,
-                resume: state.resume.filter(resume => resume.id !== action.payload),
-                resumeError: null
-            }
-        case "CREATE_ERROR":
+                resume: state.resume.filter((resume) => resume.id !== action.payload),
+                resumeError: null,
+            };
+        case 'CREATE_ERROR':
             return {
                 ...state,
-                resumeError: action.payload
-            }
-        case "FETCH_ERROR":
+                resumeError: action.payload,
+            };
+        case 'FETCH_ERROR':
             return {
                 ...state,
-                resumeError: action.payload
-            }
-        case "UPDATE_PERSONAL":
+                resumeError: action.payload,
+            };
+        case 'UPDATE_PERSONAL':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     personal: {
                         ...state.currentResume.personal,
-                        [action.payload.name]: action.payload.value
-                    }
+                        [action.payload.name]: action.payload.value,
+                    },
                 },
-                resumeError: null
-            }
-        case "ADD_EXPERIENCE":
+                resumeError: null,
+            };
+        case 'ADD_EXPERIENCE':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     experiences: [
                         ...state.currentResume.experiences,
-                        action.payload
-                    ]
+                        action.payload,
+                    ],
                 },
-                resumeError: null
-            }
-        case "UPDATE_EXPERIENCE":
+                resumeError: null,
+            };
+        case 'UPDATE_EXPERIENCE':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     experiences: state.currentResume.experiences.map((experience, index) => {
                         if (Number(index) === Number(action.payload.index)) {
-                            if (action.payload.name === "current") {
-                                return { ...experience, [action.payload.name]: !experience.current }
+                            if (action.payload.name === 'current') {
+                                return { ...experience, [action.payload.name]: !experience.current };
                             }
-                            return { ...experience, [action.payload.name]: action.payload.value }
+                            return { ...experience, [action.payload.name]: action.payload.value };
                         }
-                        return experience
-                    })
+                        return experience;
+                    }),
                 },
-                resumeError: null
-            }
-        case "DRAG_AND_DROP_CARD_EXPERIENCE":
+                resumeError: null,
+            };
+        case 'DRAG_AND_DROP_CARD_EXPERIENCE':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    experiences: action.payload
+                    experiences: action.payload,
                 },
-                resumeError: null
-            }
-        case "REMOVE_FORM_EXPERIENCE":
+                resumeError: null,
+            };
+        case 'REMOVE_FORM_EXPERIENCE':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    experiences: state.currentResume.experiences.filter((experience, index) => index !== action.payload.index)
+                    experiences: state.currentResume.experiences.filter((experience, index) => index !== action.payload.index),
                 },
-                resumeError: null
-            }
-        case "ADD_EDUCATION":
+                resumeError: null,
+            };
+        case 'ADD_EDUCATION':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     educations: [
                         ...state.currentResume.educations,
-                        action.payload
-                    ]
+                        action.payload,
+                    ],
                 },
-                resumeError: null
-            }
-        case "UPDATE_EDUCATION":
+                resumeError: null,
+            };
+        case 'UPDATE_EDUCATION':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     educations: state.currentResume.educations.map((education, index) => {
                         if (Number(index) === Number(action.payload.index)) {
-                            if (action.payload.name === "achievment") {
-                                return { ...education, [action.payload.name]: action.payload.value }
+                            if (action.payload.name === 'achievment') {
+                                return { ...education, [action.payload.name]: action.payload.value };
                             }
-                            return { ...education, [action.payload.name]: action.payload.value }
+                            return { ...education, [action.payload.name]: action.payload.value };
                         }
-                    })
+                    }),
                 },
-                resumeError: null
-            }
-        case "DRAG_AND_DROP_CARD_EDUCATION":
+                resumeError: null,
+            };
+        case 'DRAG_AND_DROP_CARD_EDUCATION':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    educations: action.payload
+                    educations: action.payload,
                 },
-                resumeError: null
-            }
-        case "REMOVE_FORM_EDUCATION":
+                resumeError: null,
+            };
+        case 'REMOVE_FORM_EDUCATION':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    educations: state.currentResume.educations.filter((education, index) => index !== action.payload.index)
+                    educations: state.currentResume.educations.filter((education, index) => index !== action.payload.index),
                 },
-                resumeError: null
-            }
-        case "ADD_ORGANIZATION_EXP":
+                resumeError: null,
+            };
+        case 'ADD_ORGANIZATION_EXP':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     organizations: [
                         ...state.currentResume.organizations,
-                        action.payload
-                    ]
+                        action.payload,
+                    ],
                 },
-                resumeError: null
-            }
-        case "UPDATE_ORGANIZATION":
+                resumeError: null,
+            };
+        case 'UPDATE_ORGANIZATION':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     organizations: state.currentResume.organizations.map((organization, index) => {
                         if (Number(index) === Number(action.payload.index)) {
-                            if (action.payload.name === "current") {
-                                return { ...organization, [action.payload.name]: !organization.current }
+                            if (action.payload.name === 'current') {
+                                return { ...organization, [action.payload.name]: !organization.current };
                             }
-                            return { ...organization, [action.payload.name]: action.payload.value }
+                            return { ...organization, [action.payload.name]: action.payload.value };
                         }
-                        return organization
-                    })
+                        return organization;
+                    }),
                 },
-                resumeError: null
-            }
-        case "DRAG_AND_DROP_CARD_ORGANIZATION":
+                resumeError: null,
+            };
+        case 'DRAG_AND_DROP_CARD_ORGANIZATION':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    organizations: action.payload
+                    organizations: action.payload,
                 },
-                resumeError: null
-            }
-        case "REMOVE_FORM_ORGANIZATION":
+                resumeError: null,
+            };
+        case 'REMOVE_FORM_ORGANIZATION':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    organizations: state.currentResume.organizations.filter((organization, index) => index !== action.payload.index)
+                    organizations: state.currentResume.organizations.filter((organization, index) => index !== action.payload.index),
                 },
-                resumeError: null
-            }
-        case "ADD_OTHER":
+                resumeError: null,
+            };
+        case 'ADD_OTHER':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     others: [
                         ...state.currentResume.others,
-                        action.payload
-                    ]
+                        action.payload,
+                    ],
                 },
-                resumeError: null
-            }
-        case "UPDATE_OTHER":
+                resumeError: null,
+            };
+        case 'UPDATE_OTHER':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
                     others: state.currentResume.others.map((other, index) => {
                         if (Number(index) === Number(action.payload.index)) {
-                            return { ...other, [action.payload.name]: action.payload.value }
+                            return { ...other, [action.payload.name]: action.payload.value };
                         }
-                        return other
-                    })
+                        return other;
+                    }),
                 },
-                resumeError: null
-            }
-        case "DRAG_AND_DROP_CARD_OTHER":
+                resumeError: null,
+            };
+        case 'DRAG_AND_DROP_CARD_OTHER':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    others: action.payload
+                    others: action.payload,
                 },
-                resumeError: null
-            }
-        case "REMOVE_FORM_OTHER":
+                resumeError: null,
+            };
+        case 'REMOVE_FORM_OTHER':
             return {
                 ...state,
                 currentResume: {
                     ...state.currentResume,
-                    others: state.currentResume.others.filter((other, index) => index !== action.payload.index)
+                    others: state.currentResume.others.filter((other, index) => index !== action.payload.index),
                 },
-                resumeError: null
-            }
-        case "UPDATE_ERROR":
+                resumeError: null,
+            };
+        case 'UPDATE_ERROR':
             return {
                 ...state,
-                resumeError: action.payload
-            }
+                resumeError: action.payload,
+            };
         default:
             return state;
     }
-}
+};

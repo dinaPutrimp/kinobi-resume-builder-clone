@@ -1,29 +1,35 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable indent */
+/* eslint-disable react/button-has-type */
+/* eslint-disable linebreak-style */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable react/react-in-jsx-scope */
-import { useNavigate } from "react-router-dom";
-import addFileSvg from "../assets/undraw_add_files.svg";
-import resumeSvg from "../assets/undraw_hiring.svg";
-import { createNewResume } from "../actions/resumeActions";
-import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import { FirebaseResumeContext } from "../contexts/FirebaseResumeContext";
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import addFileSvg from '../assets/undraw_add_files.svg';
+import resumeSvg from '../assets/undraw_hiring.svg';
+import { createNewResume } from '../actions/resumeActions';
+import { AuthContext } from '../contexts/AuthContext';
+import { FirebaseResumeContext } from '../contexts/FirebaseResumeContext';
 
-const ResumesTemplate = () => {
+function ResumesTemplate() {
     const { authState } = useContext(AuthContext);
     const { dispatchResume } = useContext(FirebaseResumeContext);
+    const displayName = authState.user.displayName === null ? `${authState.currentUser.firstName} ${authState.currentUser.lastName}` : authState.user.displayName;
     const navigate = useNavigate();
 
     const handleBlankDocument = async () => {
         const newBlankResume = {
-            projectName: `${authState.currentUser.firstName} ${authState.currentUser.lastName} resume`,
+            projectName: `${displayName} resume`,
             personal: {
-                name: `${authState.currentUser.firstName} ${authState.currentUser.lastName}`,
-                phone: "",
-                email: "",
-                linkedin: "",
-                portofolio: "",
-                address: "",
-                summary: "",
+                name: `${displayName}`,
+                phone: '',
+                email: '',
+                linkedin: '',
+                portofolio: '',
+                address: '',
+                summary: '',
             },
             experiences: [
                 {
@@ -37,7 +43,7 @@ const ResumesTemplate = () => {
                     endYear: '',
                     current: false,
                     jobdesk: '<ul><li class=\\"list-disc\\">Colaborate with team members</li></ul>',
-                }
+                },
             ],
             educations: [
                 {
@@ -52,7 +58,7 @@ const ResumesTemplate = () => {
                     gpa: 0,
                     max: '',
                     achievment: '<ul><li class=\\"list-disc\\">Lead team for web development project</li></ul>',
-                }
+                },
             ],
             organizations: [
                 {
@@ -64,47 +70,47 @@ const ResumesTemplate = () => {
                     endMonth: '',
                     endYear: '',
                     current: false,
-                    description: '<ul><li class=\\"list-disc\\">Lead team for web development project</li></ul>'
-                }
+                    description: '<ul><li class=\\"list-disc\\">Lead team for web development project</li></ul>',
+                },
             ],
             others: [
                 {
                     category: '',
                     year: '',
-                    elaboration: ''
-                }
+                    elaboration: '',
+                },
             ],
             createdAt: new Date(),
-            modifiedAt: new Date()
-        }
+            modifiedAt: new Date(),
+        };
         try {
             const response = await createNewResume(authState.user.uid, newBlankResume);
             dispatchResume({
-                type: "ADD_NEW_RESUME",
+                type: 'ADD_NEW_RESUME',
                 payload: {
                     id: response,
-                    ...newBlankResume
-                }
-            })
+                    ...newBlankResume,
+                },
+            });
             dispatchResume({
-                type: "FETCH_CURRENT_RESUME",
+                type: 'FETCH_CURRENT_RESUME',
                 payload: {
                     id: response,
-                    ...newBlankResume
-                }
-            })
-            navigate('/resume/' + response);
+                    ...newBlankResume,
+                },
+            });
+            navigate(`/resume/${response}`);
             dispatchResume({
-                type: "TOGGLE_MODAL",
-                payload: true
-            })
+                type: 'TOGGLE_MODAL',
+                payload: true,
+            });
         } catch (err) {
             dispatchResume({
-                type: "CREATE_ERROR",
-                payload: err.message
-            })
+                type: 'CREATE_ERROR',
+                payload: err.message,
+            });
         }
-    }
+    };
 
     return (
         <div className="max-w-full p-6 bg-violet-100">

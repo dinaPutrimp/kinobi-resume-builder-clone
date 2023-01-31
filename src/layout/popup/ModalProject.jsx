@@ -1,53 +1,62 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable indent */
+/* eslint-disable linebreak-style */
+/* eslint-disable react/button-has-type */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable linebreak-style */
 /* eslint-disable react/react-in-jsx-scope */
-import { useContext, useRef } from "react";
-import { updateProjectName } from "../../actions/resumeActions";
-import { AuthContext } from "../../contexts/AuthContext";
-import { FirebaseResumeContext } from "../../contexts/FirebaseResumeContext";
+import { useContext, useRef } from 'react';
+import { updateProjectName } from '../../actions/resumeActions';
+import { AuthContext } from '../../contexts/AuthContext';
+import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
-const Modal = () => {
+function Modal() {
     const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const ref = useRef(null);
 
     const handleChange = (e) => {
         dispatchResume({
-            type: "UPDATE_TITLE_RESUME",
-            payload: { value: e.target.value }
-        })
-    }
+            type: 'UPDATE_TITLE_RESUME',
+            payload: { value: e.target.value },
+        });
+    };
 
     const handleCloseModal = () => {
         dispatchResume({
-            type: "TOGGLE_MODAL",
-            payload: false
-        })
-        ref.current.value = ""
-    }
+            type: 'TOGGLE_MODAL',
+            payload: false,
+        });
+        ref.current.value = '';
+    };
 
     const handleTitleUpdate = async (resume) => {
         try {
             await updateProjectName(authState.user.uid, resume);
             dispatchResume({
-                type: "UPDATE_FETCH_RESUME",
-                payload: resume
-            })
+                type: 'UPDATE_FETCH_RESUME',
+                payload: resume,
+            });
         } catch (err) {
             dispatchResume({
-                type: "UPDATE_ERROR",
-                payload: err.message
-            })
+                type: 'UPDATE_ERROR',
+                payload: err.message,
+            });
         }
         dispatchResume({
-            type: "TOGGLE_MODAL",
-            payload: false
-        })
-        ref.current.value = ""
-    }
+            type: 'TOGGLE_MODAL',
+            payload: false,
+        });
+        ref.current.value = '';
+    };
 
     return (
-        <div className={`${resumeState.modal ? "" : "hidden"} fixed inset-0 flex justify-center items-center text-center bg-modal`} onClick={handleCloseModal} >
+        <div className={`${resumeState.modal ? '' : 'hidden'} fixed inset-0 flex justify-center items-center text-center bg-modal`} onClick={handleCloseModal}>
             <div className="w-2/5 bg-white relative text-center p-6" onClick={(e) => e.stopPropagation()}>
-                <i className="fa fa-times absolute top-4 right-4 text-xl cursor-pointer" onClick={handleCloseModal}></i>
+                <i className="fa fa-times absolute top-4 right-4 text-xl cursor-pointer" onClick={handleCloseModal} />
                 <p className="text-2xl mb-4">Give your resume a title</p>
                 <div className="px-3 text-left">
                     <div className="mb-3">

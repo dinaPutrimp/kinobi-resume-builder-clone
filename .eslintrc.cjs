@@ -1,25 +1,27 @@
+/* eslint-disable indent */
 /* eslint-disable no-undef */
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
+    env: {
+        browser: true,
+        es2021: true,
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+    extends: [
+        'airbnb',
+        'eslint:recommended',
+        'plugin:react/recommended',
     ],
-    "overrides": [
+    overrides: [
     ],
-    "parserOptions": {
+    parserOptions: {
         ecmaFeatures: {
             jsx: true,
         },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+        ecmaVersion: 'latest',
+        sourceType: 'module',
     },
-    "plugins": [
-        "react"
+    plugins: [
+        'react',
     ],
-    "rules": {
-    }
-}
+    rules: {
+    },
+};

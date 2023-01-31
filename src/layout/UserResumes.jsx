@@ -1,50 +1,56 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable indent */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable linebreak-style */
 /* eslint-disable react/react-in-jsx-scope */
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { FirebaseResumeContext } from "../contexts/FirebaseResumeContext";
-import ResumeDropdown from "./popup/ResumeDropdown";
-import UpdatedDate from "./UpdatedDateTime";
-import noData from "../assets/undraw_no_data.svg";
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FirebaseResumeContext } from '../contexts/FirebaseResumeContext';
+import ResumeDropdown from './popup/ResumeDropdown';
+import UpdatedDate from './UpdatedDateTime';
+import noData from '../assets/undraw_no_data.svg';
 
-
-const UserResumes = () => {
+function UserResumes() {
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const [toggleMenu, setToggleMenu] = useState({
-        id: "",
-        toggle: false
+        id: '',
+        toggle: false,
     });
 
     const handleClick = (resume) => {
         dispatchResume({
-            type: "FETCH_CURRENT_RESUME",
-            payload: resume
-        })
+            type: 'FETCH_CURRENT_RESUME',
+            payload: resume,
+        });
         dispatchResume({
-            type: "TOGGLE_MODAL",
-            payload: false
-        })
-    }
+            type: 'TOGGLE_MODAL',
+            payload: false,
+        });
+    };
 
     const handleToggle = (e, resume) => {
         e.stopPropagation();
         e.preventDefault();
         dispatchResume({
-            type: "FETCH_CURRENT_RESUME",
-            payload: resume
-        })
+            type: 'FETCH_CURRENT_RESUME',
+            payload: resume,
+        });
         setToggleMenu({
             id: resume.id,
-            toggle: !toggleMenu.toggle
+            toggle: !toggleMenu.toggle,
         });
-    }
+    };
 
     return (
-        <div className="p-6 max-w-full" onClick={() => setToggleMenu({ id: "", toggle: false })}>
+        <div className="p-6 max-w-full" onClick={() => setToggleMenu({ id: '', toggle: false })}>
             <p className="text-2xl font-medium">My Resume</p>
-            {resumeState.resume.length > 0 ?
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-                    {resumeState && resumeState.resume && resumeState.resume.map(resume => {
-                        return (
+            {resumeState.resume.length > 0
+                ? (
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                        {resumeState && resumeState.resume && resumeState.resume.map((resume) => (
                             <Link to={`/resume/${resume.id}`} onClick={() => handleClick(resume)} key={resume.id}>
                                 <div className="bg-white w-44 p-2 h-fit relative">
                                     <div className="bg-white">
@@ -55,31 +61,32 @@ const UserResumes = () => {
                                             <div>
                                                 <p className="font-medium text-zinc-800 text-sm mb-6">{resume.projectName}</p>
                                                 <p className="text-xs text-gray-700 italic">
-                                                    Updated <UpdatedDate date={resume.modifiedAt} /> ago
+                                                    Last updated
+                                                    {' '}
+                                                    <UpdatedDate date={resume.modifiedAt} />
                                                 </p>
                                             </div>
                                             <div className="w-8 h-8 hover:bg-zinc-200 flex justify-center items-center rounded-full" onClick={(e) => handleToggle(e, resume)}>
                                                 <ul>
-                                                    <li className="h-1 w-1 rounded-full bg-zinc-600"></li>
-                                                    <li className="h-1 w-1 rounded-full my-px bg-zinc-600"></li>
-                                                    <li className="h-1 w-1 rounded-full bg-zinc-600"></li>
+                                                    <li className="h-1 w-1 rounded-full bg-zinc-600" />
+                                                    <li className="h-1 w-1 rounded-full my-px bg-zinc-600" />
+                                                    <li className="h-1 w-1 rounded-full bg-zinc-600" />
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    <ResumeDropdown key={resume.id} id={resume.id} toggleMenu={toggleMenu} close={() => setToggleMenu({ id: "", toggle: false })} />
+                                    <ResumeDropdown key={resume.id} id={resume.id} toggleMenu={toggleMenu} close={() => setToggleMenu({ id: '', toggle: false })} />
                                 </div>
                             </Link>
-                        )
-                    })
-                    }
-                </div>
-                :
-                <div className="grid place-items-center md:pt-6 pt-3">
-                    <img src={noData} className="w-28 bg-violet-50 p-5" />
-                    <p className="text-xl text-gray-300">no resume</p>
-                </div>
-            }
+                        ))}
+                    </div>
+                )
+                : (
+                    <div className="grid place-items-center md:pt-6 pt-3">
+                        <img src={noData} className="w-28 bg-violet-50 p-5" />
+                        <p className="text-xl text-gray-300">no resume</p>
+                    </div>
+                )}
         </div>
     );
 }

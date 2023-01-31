@@ -1,21 +1,28 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable indent */
+/* eslint-disable linebreak-style */
+/* eslint-disable consistent-return */
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable linebreak-style */
 /* eslint-disable react/react-in-jsx-scope */
-import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import ResumeView from "../component/ResumeView";
-import { AuthContext } from "../contexts/AuthContext";
-import { FirebaseResumeContext } from "../contexts/FirebaseResumeContext";
-import Modal from "./popup/ModalProject";
-import ResumesTemplate from "./ResumesTemplate";
-import UserResumes from "./UserResumes";
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ResumeView from '../component/ResumeView';
+import { AuthContext } from '../contexts/AuthContext';
+import { FirebaseResumeContext } from '../contexts/FirebaseResumeContext';
+import Modal from './popup/ModalProject';
+import ResumesTemplate from './ResumesTemplate';
+import UserResumes from './UserResumes';
 
-const Dashboard = () => {
+function Dashboard() {
     const { authState } = useContext(AuthContext);
     const { resumeState } = useContext(FirebaseResumeContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!authState.user.uid) return navigate("/login");
-    }, [authState.user.uid])
+        if (!authState.user.uid) return navigate('/login');
+    }, [authState.user.uid]);
 
     const embeded = Object.keys(resumeState.currentResume).length ? <ResumeView /> : <></>;
 

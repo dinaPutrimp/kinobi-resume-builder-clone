@@ -1,52 +1,65 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable indent */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable consistent-return */
+/* eslint-disable linebreak-style */
+/* eslint-disable react/function-component-definition */
 /* eslint-disable react/react-in-jsx-scope */
-import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
-import { signup } from "../../actions/authActions";
+import { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import { signup } from '../../actions/authActions';
 
 const SignUp = () => {
     const [submitValues, setSubmitValues] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: ""
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
     });
     const navigate = useNavigate();
     const { authState, dispatchAuth } = useContext(AuthContext);
 
     const handleChange = (e) => {
-        setSubmitValues(values => ({
+        setSubmitValues((values) => ({
             ...values,
-            [e.target.name]: e.target.value
-        }))
-    }
+            [e.target.name]: e.target.value,
+        }));
+    };
 
     const handleSignUp = async (e) => {
         e.preventDefault();
 
         try {
-            let response = await signup(submitValues);
+            const response = await signup(submitValues);
             return dispatchAuth({
-                type: "SIGNUP",
-                payload: response.user
-            })
+                type: 'SIGNUP',
+                payload: response.user,
+            });
         } catch (err) {
             dispatchAuth({
-                type: "SIGNUP_ERROR",
-                payload: err.message
-            })
+                type: 'SIGNUP_ERROR',
+                payload: err.message,
+            });
         }
-    }
+    };
 
     useEffect(() => {
-        if (authState.user?.uid) return navigate("/user");
-    }, [authState.user.uid])
+        if (authState.user?.uid) return navigate('/user');
+    }, [authState.user.uid]);
 
     return (
         <div className="max-w-full grid md:grid-cols-2">
             <div className="bg-blue-grad p-16 relative hidden md:block">
                 <div className="backdrop-blur bg-white/30 p-6">
-                    <p className="text-6xl lg:text-8xl text-white">Platform <span className="text-blue-700">Persiapan Karir</span> #1 di Asia</p>
+                    <p className="text-6xl lg:text-8xl text-white">
+                        Platform
+                        {' '}
+                        <span className="text-blue-700">Persiapan Karir</span>
+                        {' '}
+                        #1 di Asia
+                    </p>
                 </div>
                 <small className="absolute bottom-2 left-2 text-white">Design by Edupark-Sign-up-page</small>
             </div>
@@ -75,6 +88,6 @@ const SignUp = () => {
             </form>
         </div>
     );
-}
+};
 
 export default SignUp;

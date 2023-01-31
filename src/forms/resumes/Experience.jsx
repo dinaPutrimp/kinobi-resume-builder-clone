@@ -1,14 +1,25 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/button-has-type */
+/* eslint-disable indent */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable linebreak-style */
 /* eslint-disable react/react-in-jsx-scope */
-import { useRef } from "react";
-import { useContext } from "react";
-import ContentEditable from "react-contenteditable";
-import { Link, useLocation } from "react-router-dom";
-import { updateExperiencesDataToFirestore } from "../../actions/resumeActions";
-import { AuthContext } from "../../contexts/AuthContext";
-import { FirebaseResumeContext } from "../../contexts/FirebaseResumeContext";
+import { useRef, useContext } from 'react';
+import ContentEditable from 'react-contenteditable';
+import { Link, useLocation } from 'react-router-dom';
+import { updateExperiencesDataToFirestore } from '../../actions/resumeActions';
+import { AuthContext } from '../../contexts/AuthContext';
+import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
-
-const Experience = () => {
+function Experience() {
     const location = useLocation();
     const years = Array.from(new Array(40), (_, index) => (new Date()).getFullYear() - index);
     const { authState } = useContext(AuthContext);
@@ -18,7 +29,7 @@ const Experience = () => {
 
     const addExperience = () => {
         dispatchResume({
-            type: "ADD_EXPERIENCE",
+            type: 'ADD_EXPERIENCE',
             payload: {
                 company: '',
                 role: '',
@@ -30,25 +41,25 @@ const Experience = () => {
                 endYear: '',
                 current: false,
                 jobdesk: '<ul><li class=\\"list-disc\\"></li></ul>',
-            }
+            },
         });
-    }
+    };
 
     const handleChange = (e, idx) => {
         dispatchResume({
-            type: "UPDATE_EXPERIENCE",
-            payload: { name: e.target.name, value: e.target.value, index: idx }
-        })
-    }
+            type: 'UPDATE_EXPERIENCE',
+            payload: { name: e.target.name, value: e.target.value, index: idx },
+        });
+    };
 
     const handleDragStart = (e, idx) => {
         // e.stopPropagation();
         dragCardIndex.current = idx;
-    }
+    };
 
     const handleDragEnter = (e, idx) => {
         dragOverCardIndex.current = idx;
-    }
+    };
 
     // eslint-disable-next-line no-unused-vars
     const handleDropCard = (e) => {
@@ -59,25 +70,25 @@ const Experience = () => {
         dragCardIndex.current = null;
         dragOverCardIndex.current = null;
         dispatchResume({
-            type: "DRAG_AND_DROP_CARD_EXPERIENCE",
+            type: 'DRAG_AND_DROP_CARD_EXPERIENCE',
             payload: listOfCards,
         });
-    }
+    };
 
     const handleExperiencesUpdate = async (resume) => {
         try {
             await updateExperiencesDataToFirestore(authState.user.uid, resume);
             dispatchResume({
-                type: "UPDATE_FETCH_RESUME",
-                payload: resume
-            })
+                type: 'UPDATE_FETCH_RESUME',
+                payload: resume,
+            });
         } catch (err) {
             dispatchResume({
-                type: "UPDATE_ERROR",
-                payload: err.message
-            })
+                type: 'UPDATE_ERROR',
+                payload: err.message,
+            });
         }
-    }
+    };
 
     return (
         <div className="p-3 shadow-t-side rounded-lg bg-white">
@@ -87,121 +98,143 @@ const Experience = () => {
                     <small>Start with your most recent (newest) experiences.</small>
                 </div>
                 <div className="accordion" id="accordionCard">
-                    {resumeState && resumeState.currentResume && resumeState.currentResume.experiences.map((experience, index) => {
-                        return (
-                            <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`} onDragStart={(e) => handleDragStart(e, index)} onDragEnter={(e) => handleDragEnter(e, index)} onDragEnd={handleDropCard} draggable>
-                                <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
-                                    <div className="flex items-center">
-                                        <span className="mr-2">{experience.role} - {experience.company}</span>
-                                        <i className="fa fa-trash text-xl text-red-500 cursor-pointer" onClick={() => dispatchResume({ type: "REMOVE_FORM_EXPERIENCE", payload: { index: index } })}></i>
-                                    </div>
-                                </label>
-                                <div className="accordion-collapse collapse show" id={`collapse${index}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionCard">
-                                    <div className="accordion-body py-4 px-5">
-                                        <div className="mb-4 mt-4 md:mt-4 md:mb-6 grid md:grid-cols-2 md:gap-4">
-                                            <div className="mb-4 md:mb-0">
-                                                <label htmlFor="company" className="block mb-2 text-xs">Company Name</label>
-                                                <input type="text" name="company" id="company" placeholder="Kinobi" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={experience.company} onChange={(e) => handleChange(e, index)} />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="role" className="block mb-2 text-xs">Job/Internship/Role Title</label>
-                                                <input type="text" name="role" id="role" placeholder="Customer Success Manager" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={experience.role} onChange={(e) => handleChange(e, index)} />
-                                            </div>
-                                        </div>
-                                        <div className="mb-4 md:mb-6">
-                                            <label htmlFor="companyLocation" className="block mb-2 text-xs">Company Location (City, Country)</label>
-                                            <input type="text" name="companyLocation" id="companyLocation" placeholder="New Delhi, India" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={experience.companyLocation} onChange={(e) => handleChange(e, index)} />
-                                        </div>
-                                        <div className="mb-4 md:mb-6">
-                                            <label htmlFor="description" className="block mb-2 text-xs">Company Description (Optional)</label>
-                                            <textarea name="description" id="description" cols="30" rows="5" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={experience.description} onChange={(e) => handleChange(e, index)}>{experience.description}</textarea>
-                                        </div>
-                                        <div className="grid md:grid-cols-2 gap-4 mb-4 md:mb-6">
-                                            <div>
-                                                <label htmlFor="startMonth" className="block mb-2 text-xs">Start Date (Month)</label>
-                                                <select data-testid="select-month" name="startMonth" id="startMonth" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 overflow-y-scroll"
-                                                    value={experience.startMonth} onChange={(e) => handleChange(e, index)}
-                                                >
-                                                    <option value=""></option>
-                                                    <option value="Jan">Jan</option>
-                                                    <option value="Feb">Feb</option>
-                                                    <option value="Mar">Mar</option>
-                                                    <option value="Apr">Apr</option>
-                                                    <option value="May">May</option>
-                                                    <option value="Jun">Jun</option>
-                                                    <option value="Jul">Jul</option>
-                                                    <option value="Aug">Aug</option>
-                                                    <option value="Sep">Sep</option>
-                                                    <option value="Oct">Oct</option>
-                                                    <option value="Nov">Nov</option>
-                                                    <option value="Des">Des</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label htmlFor="startYear" className="block mb-2 text-xs">Start Date (Year)</label>
-                                                <select name="startYear" id="startYear" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900"
-                                                    value={experience.startYear} onChange={(e) => handleChange(e, index)}
-                                                >
-                                                    <option value=""></option>
-                                                    {years.map((year, idx) => {
-                                                        return <option key={idx} value={year}>{year}</option>
-                                                    })}
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label htmlFor="endMonth" className="block mb-2 text-xs">End Date (Month)</label>
-                                                <select name="endMonth" data-testid="endmonth" id="endMonth" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 overflow-y-scroll" disabled={experience.current}
-                                                    value={experience.endMonth} onChange={(e) => handleChange(e, index)}
-                                                >
-                                                    <option value=""></option>
-                                                    <option value="Jan">Jan</option>
-                                                    <option value="Feb">Feb</option>
-                                                    <option value="Mar">Mar</option>
-                                                    <option value="Apr">Apr</option>
-                                                    <option value="May">May</option>
-                                                    <option value="Jun">Jun</option>
-                                                    <option value="Jul">Jul</option>
-                                                    <option value="Aug">Aug</option>
-                                                    <option value="Sep">Sep</option>
-                                                    <option value="Oct">Oct</option>
-                                                    <option value="Nov">Nov</option>
-                                                    <option value="Des">Des</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label htmlFor="endYear" className="block mb-2 text-xs">End Date (Year)</label>
-                                                <select name="endYear" data-testid="endyear" id="endYear" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" disabled={experience.current} value={experience.endYear} onChange={(e) => handleChange(e, index)}
-                                                >
-                                                    <option value=""></option>
-                                                    {years.map((year, idx) => {
-                                                        return <option key={idx} value={year}>{year}</option>
-                                                    })}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="mb-4 md:mb-6 flex flex-wrap content-center">
-                                            <input type="checkbox" value={experience.current} name="current" id="current" className="block border border-gray-400 mr-3" onChange={(e) => handleChange(e, index)} />
-                                            <label htmlFor="current" className="block text-sm self-center">I am currently working here</label>
+                    {resumeState && resumeState.currentResume && resumeState.currentResume.experiences.map((experience, index) => (
+                        <div key={index} className="accordion-item shadow bg-white mb-4 md:px-4 md:mb-3" id={`heading${index}`} onDragStart={(e) => handleDragStart(e, index)} onDragEnter={(e) => handleDragEnter(e, index)} onDragEnd={handleDropCard} draggable>
+                            <label className="flex items-center justify-between accordion-button py-4 px-5" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="false" aria-controls={`collapse${index}`}>
+                                <div className="flex items-center">
+                                    <span className="mr-2">
+                                        {experience.role}
+                                        {' '}
+                                        -
+                                        {' '}
+                                        {experience.company}
+                                    </span>
+                                    <i className="fa fa-trash text-xl text-red-500 cursor-pointer" onClick={() => dispatchResume({ type: 'REMOVE_FORM_EXPERIENCE', payload: { index } })} />
+                                </div>
+                            </label>
+                            <div className="accordion-collapse collapse show" id={`collapse${index}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionCard">
+                                <div className="accordion-body py-4 px-5">
+                                    <div className="mb-4 mt-4 md:mt-4 md:mb-6 grid md:grid-cols-2 md:gap-4">
+                                        <div className="mb-4 md:mb-0">
+                                            <label htmlFor="company" className="block mb-2 text-xs">Company Name</label>
+                                            <input type="text" name="company" id="company" placeholder="Kinobi" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={experience.company} onChange={(e) => handleChange(e, index)} />
                                         </div>
                                         <div>
-                                            <label htmlFor="jobdesk" className="block mb-2 text-xs">Work Portofolio and Achievments</label>
-                                            <ContentEditable
-                                                className="block w-full py-2 px-8 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 font-sans text-base font-normal"
-                                                tagName="ul"
-                                                html={experience.jobdesk} // innerHTML of the editable div
-                                                disabled={false} // use true to disable edition
-                                                onChange={(e) => dispatchResume({
-                                                    type: "UPDATE_EXPERIENCE",
-                                                    payload: { name: "jobdesk", value: e.target.value, index: index }
-                                                })} // handle innerHTML change
-                                            />
-                                            <small className="block mb-2 text-xs italic">e.g. Led a mentoring sohort spanning more than 200 individuals in span of less then</small>
+                                            <label htmlFor="role" className="block mb-2 text-xs">Job/Internship/Role Title</label>
+                                            <input type="text" name="role" id="role" placeholder="Customer Success Manager" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={experience.role} onChange={(e) => handleChange(e, index)} />
                                         </div>
+                                    </div>
+                                    <div className="mb-4 md:mb-6">
+                                        <label htmlFor="companyLocation" className="block mb-2 text-xs">Company Location (City, Country)</label>
+                                        <input type="text" name="companyLocation" id="companyLocation" placeholder="New Delhi, India" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={experience.companyLocation} onChange={(e) => handleChange(e, index)} />
+                                    </div>
+                                    <div className="mb-4 md:mb-6">
+                                        <label htmlFor="description" className="block mb-2 text-xs">Company Description (Optional)</label>
+                                        <textarea name="description" id="description" cols="30" rows="5" className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900" value={experience.description} onChange={(e) => handleChange(e, index)}>{experience.description}</textarea>
+                                    </div>
+                                    <div className="grid md:grid-cols-2 gap-4 mb-4 md:mb-6">
+                                        <div>
+                                            <label htmlFor="startMonth" className="block mb-2 text-xs">Start Date (Month)</label>
+                                            <select
+                                                data-testid="select-month"
+                                                name="startMonth"
+                                                id="startMonth"
+                                                className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 overflow-y-scroll"
+                                                value={experience.startMonth}
+                                                onChange={(e) => handleChange(e, index)}
+                                            >
+                                                <option value="" />
+                                                <option value="Jan">Jan</option>
+                                                <option value="Feb">Feb</option>
+                                                <option value="Mar">Mar</option>
+                                                <option value="Apr">Apr</option>
+                                                <option value="May">May</option>
+                                                <option value="Jun">Jun</option>
+                                                <option value="Jul">Jul</option>
+                                                <option value="Aug">Aug</option>
+                                                <option value="Sep">Sep</option>
+                                                <option value="Oct">Oct</option>
+                                                <option value="Nov">Nov</option>
+                                                <option value="Des">Des</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="startYear" className="block mb-2 text-xs">Start Date (Year)</label>
+                                            <select
+                                                name="startYear"
+                                                id="startYear"
+                                                className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900"
+                                                value={experience.startYear}
+                                                onChange={(e) => handleChange(e, index)}
+                                            >
+                                                <option value="" />
+                                                {years.map((year, idx) => <option key={idx} value={year}>{year}</option>)}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="endMonth" className="block mb-2 text-xs">End Date (Month)</label>
+                                            <select
+                                                name="endMonth"
+                                                data-testid="endmonth"
+                                                id="endMonth"
+                                                className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 overflow-y-scroll"
+                                                disabled={experience.current}
+                                                value={experience.endMonth}
+                                                onChange={(e) => handleChange(e, index)}
+                                            >
+                                                <option value="" />
+                                                <option value="Jan">Jan</option>
+                                                <option value="Feb">Feb</option>
+                                                <option value="Mar">Mar</option>
+                                                <option value="Apr">Apr</option>
+                                                <option value="May">May</option>
+                                                <option value="Jun">Jun</option>
+                                                <option value="Jul">Jul</option>
+                                                <option value="Aug">Aug</option>
+                                                <option value="Sep">Sep</option>
+                                                <option value="Oct">Oct</option>
+                                                <option value="Nov">Nov</option>
+                                                <option value="Des">Des</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="endYear" className="block mb-2 text-xs">End Date (Year)</label>
+                                            <select
+                                                name="endYear"
+                                                data-testid="endyear"
+                                                id="endYear"
+                                                className="block w-full p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900"
+                                                disabled={experience.current}
+                                                value={experience.endYear}
+                                                onChange={(e) => handleChange(e, index)}
+                                            >
+                                                <option value="" />
+                                                {years.map((year, idx) => <option key={idx} value={year}>{year}</option>)}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="mb-4 md:mb-6 flex flex-wrap content-center">
+                                        <input type="checkbox" value={experience.current} name="current" id="current" className="block border border-gray-400 mr-3" onChange={(e) => handleChange(e, index)} />
+                                        <label htmlFor="current" className="block text-sm self-center">I am currently working here</label>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="jobdesk" className="block mb-2 text-xs">Work Portofolio and Achievments</label>
+                                        <ContentEditable
+                                            className="block w-full py-2 px-8 border border-gray-400 rounded focus:outline-none focus:border-blue-900 focus:ring-1 focus:ring-blue-900 font-sans text-base font-normal"
+                                            tagName="ul"
+                                            html={experience.jobdesk} // innerHTML of the editable div
+                                            disabled={false} // use true to disable edition
+                                            onChange={(e) => dispatchResume({
+                                                type: 'UPDATE_EXPERIENCE',
+                                                payload: { name: 'jobdesk', value: e.target.value, index },
+                                            })}
+                                        />
+                                        <small className="block mb-2 text-xs italic">e.g. Led a mentoring sohort spanning more than 200 individuals in span of less then</small>
                                     </div>
                                 </div>
                             </div>
-                        )
-                    })}
+                        </div>
+                    ))}
                 </div>
             </div>
             <button

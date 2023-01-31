@@ -1,13 +1,16 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable consistent-return */
+/* eslint-disable indent */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/react-in-jsx-scope */
-import { useEffect } from "react";
-import { useContext } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { updatePersonalDataToFirestore } from "../../actions/resumeActions";
-import { AuthContext } from "../../contexts/AuthContext";
-import { FirebaseResumeContext } from "../../contexts/FirebaseResumeContext";
+import { useEffect, useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { updatePersonalDataToFirestore } from '../../actions/resumeActions';
+import { AuthContext } from '../../contexts/AuthContext';
+import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
-
-const PersonalInfoForm = () => {
+function PersonalInfoForm() {
     const location = useLocation();
     const navigate = useNavigate();
     const { authState } = useContext(AuthContext);
@@ -15,29 +18,29 @@ const PersonalInfoForm = () => {
 
     const handleChange = (e) => {
         dispatchResume({
-            type: "UPDATE_PERSONAL",
-            payload: { name: e.target.name, value: e.target.value }
+            type: 'UPDATE_PERSONAL',
+            payload: { name: e.target.name, value: e.target.value },
         });
-    }
+    };
 
     const handleUpdate = async (resume) => {
         try {
             await updatePersonalDataToFirestore(authState.user.uid, resume);
             dispatchResume({
-                type: "UPDATE_FETCH_RESUME",
-                payload: resume
-            })
+                type: 'UPDATE_FETCH_RESUME',
+                payload: resume,
+            });
         } catch (err) {
             dispatchResume({
-                type: "UPDATE_ERROR",
-                payload: err.message
-            })
+                type: 'UPDATE_ERROR',
+                payload: err.message,
+            });
         }
-    }
+    };
 
     useEffect(() => {
-        if (!authState.user.uid) return navigate("/login");
-    }, [authState.user.uid])
+        if (!authState.user.uid) return navigate('/login');
+    }, [authState.user.uid]);
 
     return (
         <div className="p-3 shadow-t-side rounded-lg bg-white">

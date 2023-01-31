@@ -1,18 +1,22 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable indent */
+/* eslint-disable no-alert */
 /* eslint-disable react/react-in-jsx-scope */
-import { useState } from "react";
-import { sendResetPassword } from "../../actions/authActions";
+import { useState } from 'react';
+import { sendResetPassword } from '../../actions/authActions';
 
-const ResetPassword = () => {
-    const [email, setEmail] = useState("");
+function ResetPassword() {
+    const [email, setEmail] = useState('');
     const handleResetPassword = async () => {
         try {
             await sendResetPassword(email);
-            alert("Already sent. Please check your email!")
-            setEmail("")
+            alert('Already sent. Please check your email!');
+            setEmail('');
         } catch (err) {
-            alert(err)
+            alert(err);
         }
-    }
+    };
     return (
         <div className="grid place-items-center md:py-6">
             <div className="md:w-4/12 border md:px-8 md:py-6 text-center">
