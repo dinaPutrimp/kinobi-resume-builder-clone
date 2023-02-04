@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable indent */
 /* eslint-disable react/destructuring-assignment */

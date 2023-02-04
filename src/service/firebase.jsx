@@ -1,29 +1,31 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable max-len */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable indent */
 // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/storage";
-import "firebase/compat/firestore";
-import "firebase/compat/database";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/storage';
+import 'firebase/compat/firestore';
+import 'firebase/compat/database';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyA1v2fVb4jZ_koDsYfxVCduguhCI4JlgpM",
-    authDomain: "kinobi-clone.firebaseapp.com",
-    projectId: "kinobi-clone",
-    storageBucket: "kinobi-clone.appspot.com",
-    messagingSenderId: "334154644743",
-    appId: "1:334154644743:web:069a7bbe4105194d8659a2"
+    apiKey: 'AIzaSyA1v2fVb4jZ_koDsYfxVCduguhCI4JlgpM',
+    authDomain: 'kinobi-clone.firebaseapp.com',
+    projectId: 'kinobi-clone',
+    storageBucket: 'kinobi-clone.appspot.com',
+    messagingSenderId: '334154644743',
+    appId: '1:334154644743:web:069a7bbe4105194d8659a2',
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 export { firebaseApp, db };
-
-
 
 // Initialize Firebase
 // class Firebase {

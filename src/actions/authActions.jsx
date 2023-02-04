@@ -1,8 +1,10 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable consistent-return */
 /* eslint-disable max-len */
 /* eslint-disable indent */
-import firebase from 'firebase/compat';
+import firebase from 'firebase/compat/app';
 import { firebaseApp, db } from '../service/firebase';
 
 export const login = async (email, password) => firebaseApp.auth().signInWithEmailAndPassword(email, password);
