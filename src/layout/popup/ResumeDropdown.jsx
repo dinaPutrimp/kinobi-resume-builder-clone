@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable linebreak-style */
 /* eslint-disable indent */
@@ -32,6 +33,16 @@ function ResumeDropdown(props) {
             payload: true,
         });
     };
+
+    // const handleShare = (e) => {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+    //     props.close();
+    //     dispatchResume({
+    //         type: 'FETCH_CURRENT_RESUME',
+    //         payload: resumeState.resume.filter((resume) => resume.id === props.id)[0],
+    //     });
+    // };
 
     const handleDownload = (e) => {
         e.stopPropagation();
@@ -85,6 +96,10 @@ function ResumeDropdown(props) {
                 <i className="fa fa-download" />
                 <p className="text-sm">Download</p>
             </div>
+            {/* <div className="flex py-2 px-3 justify-between items-center text-slate-600 mb-2 cursor-pointer hover:bg-sky-50" onClick={handleShare}>
+                <i className="fa fa-share" />
+                <p className="text-sm">Share</p>
+            </div> */}
             <div className="flex py-2 px-3 justify-between items-center text-slate-600 cursor-pointer hover:bg-sky-50" onClick={handleDelete}>
                 <i className="fa fa-trash" />
                 <p className="text-sm">Delete</p>

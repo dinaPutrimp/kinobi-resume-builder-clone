@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-indent */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable linebreak-style */
@@ -8,23 +10,31 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { useState } from 'react';
-import Resume from './layout/Resume';
+import { lazy, Suspense, useState } from 'react';
 import NavBar from './layout/Navbar';
-import SignUp from './forms/auth/SignUp';
-import Login from './forms/auth/Login';
-import Dashboard from './layout/PrivateDashboard';
 import PublicDashboard from './layout/PublicDashboard';
-import PersonalInfoForm from './forms/resumes/PersonalInfoForm';
-import Experience from './forms/resumes/Experience';
-import Education from './forms/resumes/Education';
-import OrganisationalExperience from './forms/resumes/OrganisationalExperience';
-import OthersExperience from './forms/resumes/OthersExperience';
-import Complete from './forms/resumes/Complete';
 import StepperContextProvider from './contexts/StepperContext';
 import FirebaseResumeContextProvider from './contexts/FirebaseResumeContext';
 import EditorContextProvider from './contexts/EditorContext';
-import ResetPassword from './forms/resumes/ResetPassword';
+import PersonalSkeleton from './layout/skeleton-ui/PersonalSkeleton';
+import ExperienceSkeleton from './layout/skeleton-ui/ExperienceSkeleton';
+import OthersSkeleton from './layout/skeleton-ui/OthersSkeleton';
+import CompleteSkeleton from './layout/skeleton-ui/CompleteSkeleton';
+import PrivateDashboardSkeleton from './layout/skeleton-ui/PrivateDashSkeleton';
+import AuthSkeleton from './layout/skeleton-ui/AuthSkeleton';
+import ResumeForShare from './layout/popup/ModalShareLink';
+
+const SignUp = lazy(() => import('./forms/auth/SignUp'));
+const Login = lazy(() => import('./forms/auth/Login'));
+const ResetPassword = lazy(() => import('./forms/resumes/ResetPassword'));
+const Dashboard = lazy(() => import('./layout/PrivateDashboard'));
+const Resume = lazy(() => import('./layout/Resume'));
+const PersonalInfoForm = lazy(() => import('./forms/resumes/PersonalInfoForm'));
+const Experience = lazy(() => import('./forms/resumes/Experience'));
+const Education = lazy(() => import('./forms/resumes/Education'));
+const OrganisationalExperience = lazy(() => import('./forms/resumes/OrganisationalExperience'));
+const OthersExperience = lazy(() => import('./forms/resumes/OthersExperience'));
+const Complete = lazy(() => import('./forms/resumes/Complete'));
 
 function App() {
   const [toggle, setToggle] = useState(false);
@@ -38,19 +48,20 @@ function App() {
               <div>
                 <Routes>
                   <Route path="/" element={<PublicDashboard />} />
-                  <Route path="user" element={<Dashboard />} />
-                  <Route path="resume/:resumeId" element={<Resume />}>
-                    <Route index element={<PersonalInfoForm />} />
-                    <Route path="personal" element={<PersonalInfoForm />} />
-                    <Route path="experience" element={<Experience />} />
-                    <Route path="education" element={<Education />} />
-                    <Route path="organisational" element={<OrganisationalExperience />} />
-                    <Route path="others" element={<OthersExperience />} />
-                    <Route path="complete" element={<Complete />} />
+                  <Route path="user" element={<Suspense fallback={<PrivateDashboardSkeleton />}><Dashboard /></Suspense>} />
+                  <Route path="resume/:resumeId" element={<Suspense fallback={<div>Loading...</div>}><Resume /></Suspense>}>
+                    <Route index element={<Suspense fallback={<PersonalSkeleton />}><PersonalInfoForm /></Suspense>} />
+                    <Route path="personal" element={<Suspense fallback={<PersonalSkeleton />}><PersonalInfoForm /></Suspense>} />
+                    <Route path="experience" element={<Suspense fallback={<ExperienceSkeleton />}><Experience /></Suspense>} />
+                    <Route path="education" element={<Suspense fallback={<ExperienceSkeleton />}><Education /></Suspense>} />
+                    <Route path="organisational" element={<Suspense fallback={<ExperienceSkeleton />}><OrganisationalExperience /></Suspense>} />
+                    <Route path="others" element={<Suspense fallback={<OthersSkeleton />}><OthersExperience /></Suspense>} />
+                    <Route path="complete" element={<Suspense fallback={<CompleteSkeleton />}><Complete /></Suspense>} />
                   </Route>
-                  <Route path="signup" element={<SignUp />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="reset-password" element={<ResetPassword />} />
+                  <Route path="signup" element={<Suspense fallback={<AuthSkeleton />}><SignUp /></Suspense>} />
+                  <Route path="login" element={<Suspense fallback={<AuthSkeleton />}><Login /></Suspense>} />
+                  <Route path="reset-password" element={<Suspense fallback={<AuthSkeleton />}><ResetPassword /></Suspense>} />
+                  <Route path="user-resume" element={<ResumeForShare />} />
                 </Routes>
               </div>
             </div>

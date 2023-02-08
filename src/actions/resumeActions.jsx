@@ -61,3 +61,5 @@ export const updateProjectName = async (currentUser, resume) => db.collection('r
 
 export const deleteResume = async (currentUser, resume) => db.collection('resumes').doc(currentUser).collection('resume').doc(resume)
     .delete();
+
+export const accessResumeWithoutAuthorized = async () => db.collection('resumes').get();

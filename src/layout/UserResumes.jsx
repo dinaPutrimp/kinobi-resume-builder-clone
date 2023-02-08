@@ -18,6 +18,7 @@ function UserResumes() {
     const [toggleMenu, setToggleMenu] = useState({
         id: '',
         toggle: false,
+        toggleShareModal: false,
     });
 
     const handleClick = (resume) => {
@@ -39,13 +40,14 @@ function UserResumes() {
             payload: resume,
         });
         setToggleMenu({
+            ...toggleMenu,
             id: resume.id,
             toggle: !toggleMenu.toggle,
         });
     };
 
     return (
-        <div className="p-6 max-w-full" onClick={() => setToggleMenu({ id: '', toggle: false })}>
+        <div className="p-6 max-w-full" onClick={() => setToggleMenu({ id: '', toggle: false, toggleShareModal: false })}>
             <p className="text-2xl font-medium">My Resume</p>
             {resumeState.resume.length > 0
                 ? (
