@@ -16,13 +16,13 @@ import { useContext, useRef } from 'react';
 import ContentEditable from 'react-contenteditable';
 import { Link, useLocation } from 'react-router-dom';
 import { updateEducationsDataToFirestore } from '../../actions/resumeActions';
-import { AuthContext } from '../../contexts/AuthContext';
+// import { AuthContext } from '../../contexts/AuthContext';
 import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
 function Education() {
     const location = useLocation();
     const years = Array.from(new Array(40), (val, index) => (new Date()).getFullYear() - index);
-    const { authState } = useContext(AuthContext);
+    // const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const dragCardIndex = useRef();
     const dragOverCardIndex = useRef();
@@ -41,7 +41,7 @@ function Education() {
                 description: '',
                 gpa: 0,
                 max: '',
-                achievment: '<ul><li class=\\"list-disc\\"></li></ul>',
+                achievment: '<ul><li class="list-disc"></li></ul>',
             },
         });
     };
@@ -78,7 +78,7 @@ function Education() {
 
     const handleEducationsUpdate = async (resume) => {
         try {
-            await updateEducationsDataToFirestore(authState.user.uid, resume);
+            await updateEducationsDataToFirestore(resume);
             dispatchResume({
                 type: 'UPDATE_FETCH_RESUME',
                 payload: resume,

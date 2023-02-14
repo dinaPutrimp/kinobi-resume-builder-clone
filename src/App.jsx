@@ -22,7 +22,6 @@ import OthersSkeleton from './layout/skeleton-ui/OthersSkeleton';
 import CompleteSkeleton from './layout/skeleton-ui/CompleteSkeleton';
 import PrivateDashboardSkeleton from './layout/skeleton-ui/PrivateDashSkeleton';
 import AuthSkeleton from './layout/skeleton-ui/AuthSkeleton';
-import ResumeForShare from './layout/popup/ModalShareLink';
 
 const SignUp = lazy(() => import('./forms/auth/SignUp'));
 const Login = lazy(() => import('./forms/auth/Login'));
@@ -61,7 +60,6 @@ function App() {
                   <Route path="signup" element={<Suspense fallback={<AuthSkeleton />}><SignUp /></Suspense>} />
                   <Route path="login" element={<Suspense fallback={<AuthSkeleton />}><Login /></Suspense>} />
                   <Route path="reset-password" element={<Suspense fallback={<AuthSkeleton />}><ResetPassword /></Suspense>} />
-                  <Route path="user-resume" element={<ResumeForShare />} />
                 </Routes>
               </div>
             </div>

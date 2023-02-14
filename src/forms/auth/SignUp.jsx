@@ -32,10 +32,13 @@ const SignUp = () => {
         e.preventDefault();
 
         try {
-            const response = await signup(submitValues);
-            return dispatchAuth({
-                type: 'SIGNUP',
-                payload: response.user,
+            await signup(submitValues);
+            alert('Success. Please login!');
+            setSubmitValues({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
             });
         } catch (err) {
             dispatchAuth({
@@ -65,24 +68,27 @@ const SignUp = () => {
             </div>
             <form onSubmit={handleSignUp} className="p-8 md:p-16">
                 <p className="font-bold text-2xl text-black mb-1">Welcome folks,</p>
-                <p className="text-sm text-gray-400 mb-6">Please sign up to access more fiture!</p>
+                <p className="text-sm text-gray-400 mb-2">Please sign up to access more fiture!</p>
+                {authState && authState.authError && authState.authError.signError && (
+                    <small className="text-red-500 text-xs mb-6 italic">{authState.authError.signError}</small>
+                )}
                 <div className="mb-4 grid gap-4 md:grid-cols-2">
                     <div>
                         <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">First Name</label>
-                        <input type="text" name="firstName" onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
+                        <input type="text" name="firstName" value={submitValues.firstName} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
                     </div>
                     <div>
                         <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">Last Name</label>
-                        <input type="text" name="lastName" onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
+                        <input type="text" name="lastName" value={submitValues.lastName} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
                     </div>
                 </div>
                 <div className="mb-4">
                     <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">Email</label>
-                    <input type="email" name="email" onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
+                    <input type="email" name="email" value={submitValues.email} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
                 </div>
                 <div className="mb-6">
                     <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">Password</label>
-                    <input type="password" name="password" onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
+                    <input type="password" name="password" value={submitValues.password} onChange={handleChange} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
                 </div>
                 <button type="submit" className="block w-full text-white rounded font-medium bg-dark-blue-grad p-2">Sign Up</button>
             </form>

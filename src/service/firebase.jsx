@@ -1,14 +1,17 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable max-len */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable indent */
 // Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/storage';
-import 'firebase/compat/firestore';
-import 'firebase/compat/database';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/compat/auth';
+// import 'firebase/compat/storage';
+// import 'firebase/compat/firestore';
+// import 'firebase/compat/database';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,10 +25,13 @@ const firebaseConfig = {
     appId: '1:334154644743:web:069a7bbe4105194d8659a2',
 };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+// const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+// const db = firebase.firestore();
 
-export { firebaseApp, db };
+export { auth, db };
 
 // Initialize Firebase
 // class Firebase {

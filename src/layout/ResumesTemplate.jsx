@@ -80,11 +80,10 @@ function ResumesTemplate() {
                     elaboration: '',
                 },
             ],
-            createdAt: new Date(),
-            modifiedAt: new Date(),
+            uid: authState.user.uid,
         };
         try {
-            const response = await createNewResume(authState.user.uid, newBlankResume);
+            const response = await createNewResume(newBlankResume);
             dispatchResume({
                 type: 'ADD_NEW_RESUME',
                 payload: {

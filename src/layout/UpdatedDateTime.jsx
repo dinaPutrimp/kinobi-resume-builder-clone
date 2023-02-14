@@ -12,12 +12,12 @@ import { useEffect, useState } from 'react';
 
 function UpdatedDate(props) {
     const [currentDate, setCurrentDate] = useState({
-        modifiedAt: moment(props.date.toDate()).startOf('hour').fromNow(),
+        modifiedAt: moment(props.resume.modifiedAt.toDate()).startOf('hour').fromNow(),
     });
 
     useEffect(() => {
         const updated = setInterval(() => {
-            const time = moment(props.date.toDate()).startOf('hour').fromNow(true);
+            const time = moment(props.resume.modifiedAt.toDate()).startOf('hour').fromNow(true);
             if (time !== currentDate.modifiedAt) {
                 setCurrentDate({
                     modifiedAt: time,
@@ -26,7 +26,7 @@ function UpdatedDate(props) {
         }, 3000);
 
         return () => clearInterval(updated);
-    }, []);
+    }, [props.resume]);
 
     return (
         <>

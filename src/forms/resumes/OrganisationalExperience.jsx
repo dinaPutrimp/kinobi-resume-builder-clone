@@ -16,13 +16,13 @@ import { useRef, useContext } from 'react';
 import ContentEditable from 'react-contenteditable';
 import { Link, useLocation } from 'react-router-dom';
 import { updateOrganizationsDataToFirestore } from '../../actions/resumeActions';
-import { AuthContext } from '../../contexts/AuthContext';
+// import { AuthContext } from '../../contexts/AuthContext';
 import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
 function OrganisationalExperience() {
     const location = useLocation();
     const years = Array.from(new Array(40), (val, index) => (new Date()).getFullYear() - index);
-    const { authState } = useContext(AuthContext);
+    // const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const dragCardIndex = useRef();
     const dragOverCardIndex = useRef();
@@ -39,7 +39,7 @@ function OrganisationalExperience() {
                 endMonth: '',
                 endYear: '',
                 current: false,
-                description: '<ul><li class=\\"list-disc\\"></li></ul>',
+                description: '<ul><li class="list-disc"></li></ul>',
             },
         });
     };
@@ -76,7 +76,7 @@ function OrganisationalExperience() {
 
     const handleOrganisationsUpdate = async (resume) => {
         try {
-            await updateOrganizationsDataToFirestore(authState.user.uid, resume);
+            await updateOrganizationsDataToFirestore(resume);
             dispatchResume({
                 type: 'UPDATE_FETCH_RESUME',
                 payload: resume,

@@ -13,11 +13,11 @@
 /* eslint-disable react/prop-types */
 import { useContext } from 'react';
 import { deleteResume } from '../../actions/resumeActions';
-import { AuthContext } from '../../contexts/AuthContext';
+// import { AuthContext } from '../../contexts/AuthContext';
 import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
 function ResumeDropdown(props) {
-    const { authState } = useContext(AuthContext);
+    // const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
 
     const handleRename = (e) => {
@@ -68,7 +68,7 @@ function ResumeDropdown(props) {
         e.preventDefault();
         props.close();
         try {
-            await deleteResume(authState.user.uid, props.id);
+            await deleteResume(props.id);
             dispatchResume({
                 type: 'DELETE_RESUME',
                 payload: props.id,
@@ -85,6 +85,8 @@ function ResumeDropdown(props) {
             });
         }
     };
+
+    console.log(props);
 
     return (
         <div className={`${props.id === props.toggleMenu.id && props.toggleMenu.toggle ? 'flex' : 'hidden'} flex-col w-32 h-fit rounded shadow-xl absolute -bottom-4 -right-8 bg-white z-10`}>

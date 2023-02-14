@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable linebreak-style */
 /* eslint-disable indent */
@@ -19,7 +20,6 @@ import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 function UserMenu(props) {
     const { authState, dispatchAuth } = useContext(AuthContext);
     const { dispatchResume } = useContext(FirebaseResumeContext);
-    const displayName = (authState.user.displayName !== null ? authState.user.displayName : `${authState.currentUser.firstName} ${authState.currentUser.lastName}`).split(' ').map((name) => name[0].toUpperCase() + name.substring(1)).join(' ');
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -47,7 +47,7 @@ function UserMenu(props) {
             <div className="flex items-center justify-between py-3 px-3 border-b">
                 <div className="rounded-full w-8 h-8 md:w-10 md:h-10 bg-green-400 flex justify-center items-center text-center font-medium uppercase">{props.initials}</div>
                 <div>
-                    <p className="text-xl font-semibold">{displayName}</p>
+                    <p className="text-xl font-semibold">{authState.currentUser.firstName} {authState.currentUser.lastName}</p>
                     <p className="text-xs italic text-gray-500">{authState.user.email}</p>
                 </div>
                 {authState.user && authState.user.emailVerified ? (

@@ -16,13 +16,13 @@ import { useRef, useContext } from 'react';
 import ContentEditable from 'react-contenteditable';
 import { Link, useLocation } from 'react-router-dom';
 import { updateExperiencesDataToFirestore } from '../../actions/resumeActions';
-import { AuthContext } from '../../contexts/AuthContext';
+// import { AuthContext } from '../../contexts/AuthContext';
 import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
 function Experience() {
     const location = useLocation();
     const years = Array.from(new Array(40), (_, index) => (new Date()).getFullYear() - index);
-    const { authState } = useContext(AuthContext);
+    // const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const dragCardIndex = useRef();
     const dragOverCardIndex = useRef();
@@ -40,7 +40,7 @@ function Experience() {
                 endMonth: '',
                 endYear: '',
                 current: false,
-                jobdesk: '<ul><li class=\\"list-disc\\"></li></ul>',
+                jobdesk: '<ul><li class="list-disc"></li></ul>',
             },
         });
     };
@@ -77,7 +77,7 @@ function Experience() {
 
     const handleExperiencesUpdate = async (resume) => {
         try {
-            await updateExperiencesDataToFirestore(authState.user.uid, resume);
+            await updateExperiencesDataToFirestore(resume);
             dispatchResume({
                 type: 'UPDATE_FETCH_RESUME',
                 payload: resume,

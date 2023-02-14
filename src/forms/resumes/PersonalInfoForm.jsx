@@ -25,7 +25,7 @@ function PersonalInfoForm() {
 
     const handleUpdate = async (resume) => {
         try {
-            await updatePersonalDataToFirestore(authState.user.uid, resume);
+            await updatePersonalDataToFirestore(resume);
             dispatchResume({
                 type: 'UPDATE_FETCH_RESUME',
                 payload: resume,

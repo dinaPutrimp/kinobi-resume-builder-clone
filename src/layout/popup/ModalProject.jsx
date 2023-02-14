@@ -10,11 +10,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useContext, useRef } from 'react';
 import { updateProjectName } from '../../actions/resumeActions';
-import { AuthContext } from '../../contexts/AuthContext';
+// import { AuthContext } from '../../contexts/AuthContext';
 import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
 function Modal() {
-    const { authState } = useContext(AuthContext);
+    // const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const ref = useRef(null);
 
@@ -35,7 +35,7 @@ function Modal() {
 
     const handleTitleUpdate = async (resume) => {
         try {
-            await updateProjectName(authState.user.uid, resume);
+            await updateProjectName(resume);
             dispatchResume({
                 type: 'UPDATE_FETCH_RESUME',
                 payload: resume,

@@ -65,7 +65,8 @@ function UserResumes() {
                                                 <p className="text-xs text-gray-700 italic">
                                                     Last updated
                                                     {' '}
-                                                    <UpdatedDate date={resume.modifiedAt} />
+                                                    {/* <UpdatedDate /> */}
+                                                    <UpdatedDate resume={resume} />
                                                 </p>
                                             </div>
                                             <div className="w-8 h-8 hover:bg-zinc-200 flex justify-center items-center rounded-full" onClick={(e) => handleToggle(e, resume)}>

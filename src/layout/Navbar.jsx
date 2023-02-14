@@ -20,7 +20,7 @@ import UserMenu from './popup/UserMenu';
 
 function NavBar(props) {
     const { authState, dispatchAuth } = useContext(AuthContext);
-    const { dispatchResume } = useContext(FirebaseResumeContext);
+    const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const link = authState.user?.uid ? '/user' : '/';
 
     const handleToggleUser = (e) => {
@@ -30,26 +30,17 @@ function NavBar(props) {
 
     useEffect(() => {
         if (authState.user.uid) {
-            if (authState.user.displayName === null) {
-                getUserData(authState.user.uid).then((response) => {
-                    if (response) {
-                        dispatchAuth({
-                            type: 'CURRENT_USER',
-                            payload: response.data(),
-                        });
-                    }
-                }).catch((err) => {
-                    dispatchAuth({
-                        type: 'FETCH_ERROR',
-                        payload: err.message,
-                    });
-                });
-            } else {
+            getUserData(authState.user.uid).then((response) => {
                 dispatchAuth({
                     type: 'CURRENT_USER',
-                    payload: {},
+                    payload: response.data(),
                 });
-            }
+            }).catch((err) => {
+                dispatchAuth({
+                    type: 'FETCH_ERROR',
+                    payload: err.message,
+                });
+            });
             getResumeData(authState.user.uid).then((resumes) => {
                 resumes.forEach((resume) => {
                     if (resume) {
@@ -71,11 +62,25 @@ function NavBar(props) {
         }
     }, [authState.user?.uid]);
 
+    console.log(resumeState);
+
     return (
         <div className="w-full bg-white flex justify-between px-6 py-6 shadow-md">
             <Link to={link} className="text-2xl md:text-4xl font-semibold text-blue-900">Kinobi Clone</Link>
             <div className="flex justify-around items-center">
-                {authState && authState.user.uid
+                {authState && authState.user.uid && authState.currentUser ? (
+                    <div className="relative">
+                        <div className="rounded-full w-8 h-8 md:w-10 md:h-10 bg-green-400 flex justify-center items-center text-center mr-4 font-medium uppercase cursor-pointer" onClick={handleToggleUser}>{authState.currentUser.initials}</div>
+                        <UserMenu toggle={props.toggleValue} initials={authState.currentUser.initials} />
+                    </div>
+                )
+                    : (
+                        <>
+                            <Link to="/signup" className="cursor-pointer mr-4 px-3 md:px-4 py-1 border-2 border-blue-900 rounded text-blue-900 text-sm md:text-base font-semibold">SignUp</Link>
+                            <Link to="/login" className="cursor-pointer px-3 md:px-4 py-1 border-2 border-blue-900 rounded text-blue-900 text-sm md:text-base font-semibold">Login</Link>
+                        </>
+                    )}
+                {/* {authState && authState.user.uid
                     ? authState.user.displayName === null
                         ? (
                             <div className="relative">
@@ -94,7 +99,7 @@ function NavBar(props) {
                             <Link to="/signup" className="cursor-pointer mr-4 px-3 md:px-4 py-1 border-2 border-blue-900 rounded text-blue-900 text-sm md:text-base font-semibold">SignUp</Link>
                             <Link to="/login" className="cursor-pointer px-3 md:px-4 py-1 border-2 border-blue-900 rounded text-blue-900 text-sm md:text-base font-semibold">Login</Link>
                         </>
-                    )}
+                    )} */}
             </div>
         </div>
     );

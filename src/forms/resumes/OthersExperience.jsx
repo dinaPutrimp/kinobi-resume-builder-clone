@@ -13,13 +13,13 @@
 import { useRef, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { updateOthersDataToFirestore } from '../../actions/resumeActions';
-import { AuthContext } from '../../contexts/AuthContext';
+// import { AuthContext } from '../../contexts/AuthContext';
 import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 
 function OthersExperience() {
     const location = useLocation();
     const years = Array.from(new Array(40), (val, index) => (new Date()).getFullYear() - index);
-    const { authState } = useContext(AuthContext);
+    // const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const dragCardIndex = useRef();
     const dragOverCardIndex = useRef();
@@ -67,7 +67,7 @@ function OthersExperience() {
 
     const handleOthersUpdate = async (resume) => {
         try {
-            await updateOthersDataToFirestore(authState.user.uid, resume);
+            await updateOthersDataToFirestore(resume);
             dispatchResume({
                 type: 'UPDATE_FETCH_RESUME',
                 payload: resume,

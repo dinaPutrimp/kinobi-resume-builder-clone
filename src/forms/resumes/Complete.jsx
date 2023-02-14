@@ -8,18 +8,18 @@
 import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { updateCompleteData } from '../../actions/resumeActions';
-import { AuthContext } from '../../contexts/AuthContext';
+// import { AuthContext } from '../../contexts/AuthContext';
 import { FirebaseResumeContext } from '../../contexts/FirebaseResumeContext';
 import { StepperContext } from '../../contexts/StepperContext';
 
 function Complete() {
     const location = useLocation();
-    const { authState } = useContext(AuthContext);
+    // const { authState } = useContext(AuthContext);
     const { resumeState, dispatchResume } = useContext(FirebaseResumeContext);
     const { pdfID } = useContext(StepperContext);
     const generatePDF = async (resume) => {
         try {
-            await updateCompleteData(authState.user.uid, resume);
+            await updateCompleteData(resume);
             dispatchResume({
                 type: 'UPDATE_FETCH_RESUME',
                 payload: resume,

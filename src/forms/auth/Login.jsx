@@ -34,6 +34,8 @@ function Login() {
                 type: 'TOGGLE_MODAL',
                 payload: false,
             });
+            setEmail('');
+            setPassword('');
         } catch (err) {
             dispatchAuth({
                 type: 'LOGIN_ERROR',
@@ -47,7 +49,7 @@ function Login() {
             const response = await loginWithGoogle();
             dispatchAuth({
                 type: 'LOGIN',
-                payload: response.user,
+                payload: response,
             });
             dispatchResume({
                 type: 'TOGGLE_MODAL',
@@ -87,11 +89,11 @@ function Login() {
                     )}
                     <div className="mb-4">
                         <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">Email</label>
-                        <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
+                        <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
                     </div>
                     <div className="mb-2">
                         <label htmlFor="" className="block font-bold text-blue-900 text-sm mb-2">Password</label>
-                        <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
+                        <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="block w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" />
                     </div>
                     <div className="mb-6 text-right">
                         <Link to="/reset-password" className="text-blue-700 text-xs cursor-pointer">Forget password?</Link>
