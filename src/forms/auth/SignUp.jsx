@@ -68,7 +68,7 @@ const SignUp = () => {
             </div>
             <form onSubmit={handleSignUp} className="p-8 md:p-16">
                 <p className="font-bold text-2xl text-black mb-1">Welcome folks,</p>
-                <p className="text-sm text-gray-400 mb-2">Please sign up to access more fiture!</p>
+                <p className="text-sm text-gray-400 mb-2">Please sign up to access more features!</p>
                 {authState && authState.authError && authState.authError.signError && (
                     <small className="text-red-500 text-xs mb-6 italic">{authState.authError.signError}</small>
                 )}
