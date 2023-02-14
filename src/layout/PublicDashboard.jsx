@@ -16,17 +16,17 @@ function PublicDashboard() {
             <div>
                 <p className="font-medium text-2xl md:text-4xl mb-6 md:mb-10">
                     Platform
-                    <span className="text-blue-800">Persiapan Karier</span>
+                    <span className="text-blue-800"> Persiapan Karier</span>
                     {' '}
                     #1 di Asia
                 </p>
                 <p className="text-gray-500 mb-8 text-sm md:text-base">
                     Persiapkan karier mahasiswa universitas Anda dengan all-in-one career platform dari Kinobi. Platform kami dilengkapi dengan fitur lengkap seperti
-                    <span className="italic">CV builder</span>
+                    <span className="italic"> CV builder</span>
                     , portal lowongan kerja,
-                    <span className="italic">software virtual career fair</span>
+                    <span className="italic"> software virtual career fair</span>
                     , dan
-                    <span className="italic">program tracer study.</span>
+                    <span className="italic"> program tracer study.</span>
                 </p>
                 <Link to="/signup" className="p-3 md:px-6 md:py-3 text-sm md:text-base bg-blue-800 font-medium text-white rounded">Get Started</Link>
             </div>
